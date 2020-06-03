@@ -14,13 +14,16 @@
 </head>
 <body>
 
-<div th:if="*{session.tipo_usuario_logeado==99}">
+<div th:if="*{session.tipo_usuario_logeado==6}">
 <a href="/distritos/c-list-distrito">Gestionar Distritos</a>
 <br>
 <a href="/locales/c-list-local">Gestionar Locales</a>
 <br>
 <a href="/empleados/c-list-empleado">Gestionar Empleados</a>
-
+<br>
+<a href="/categorias/c-list-categoria">Gestionar Categorias</a>
+<br>
+<a href="/productos/c-list-producto">Gestionar Productos</a>
 </div>
  
 

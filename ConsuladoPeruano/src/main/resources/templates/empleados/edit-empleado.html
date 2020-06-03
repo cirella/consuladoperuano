@@ -14,7 +14,7 @@
 </head>
 <body>
 
-	<div th:if="*{session.tipo_usuario_logeado==99}">
+	<div th:if="*{session.tipo_usuario_logeado==6}">
 
 
 		<form action="#" th:action="@{/empleados/do-edit-empleado}"
@@ -107,7 +107,8 @@
 
 			</table>
 		</form>
-		 <a href="/showHome" >Home</a>  
+<br>
+<a href="/empleado/c-list-empleado">Gestionar Empleados</a>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

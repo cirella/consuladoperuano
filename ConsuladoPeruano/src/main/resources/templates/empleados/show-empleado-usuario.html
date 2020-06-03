@@ -14,7 +14,7 @@
 </head>
 <body>
 
-	<div th:if="*{session.tipo_usuario_logeado==99}">
+	<div th:if="*{session.tipo_usuario_logeado==6}">
 
 Se confirma el registro del empleado
 
@@ -87,7 +87,8 @@ Se confirma el registro del empleado
 		</table>
 		<br>
 		<a href="/empleados/c-add-empleado">Nuevo Empleado</a> <br> <a
-			href="/showHome">Home</a>
+<br>
+<a href="/empleado/c-list-empleado">Gestionar Empleados</a>
 	</div>
 
 

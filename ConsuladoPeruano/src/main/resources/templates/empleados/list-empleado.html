@@ -14,9 +14,10 @@
 </head>
 <body>
 
-<div th:if="*{session.tipo_usuario_logeado==99}">
+<div th:if="*{session.tipo_usuario_logeado==6}">
 
  <a href="/empleados/c-add-empleado" >Nuevo Empleado</a>            
+     
      
   <table>
       <thead>
@@ -27,6 +28,7 @@
          <th>Tipo Documento</th>
          <th># Documento</th>
          <th>Local</th>
+         <th>Tipo Empleado</th>
          <th>Telefono</th>
          <th>Email</th>
          <th>Edit</th>
@@ -38,9 +40,12 @@
             <td th:text="${empleado.id}"></td>
             <td th:text="${empleado.nombres}"></td>
             <td th:text="${empleado.apellidos}"></td>
-            <td th:text="${empleado.tipodocumento}"></td>
+       		<td th:text="${listaTipodocumento[empleado.tipodocumento]}"></td>
+         
             <td th:text="${empleado.numerodocumento}"></td>
             <td th:text="${empleado.local.nombrelocal}"></td>
+       		<td th:text="${listaTipoempleado[empleado.tipoempleado]}"></td>
+
             <td th:text="${empleado.telefono}"></td>
             <td th:text="${empleado.email}"></td>
            

@@ -14,7 +14,7 @@
 </head>
 <body>
 
-	<div th:if="*{session.tipo_usuario_logeado==99}">
+	<div th:if="*{session.tipo_usuario_logeado==6}">
 
 
 		<form action="#" th:action="@{/distritos/do-add-distrito}"
@@ -37,6 +37,8 @@
 		</form>
 	</div>
 
+<br>
+<a href="/distritos/c-list-distrito">Gestionar Distritos</a>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

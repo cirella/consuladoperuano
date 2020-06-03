@@ -13,29 +13,39 @@
 
 </head>
 <body>
-	<form th:action="@{/doValidaUsuario}" th:object="${usuario_a_validar}"
-		method="post">
-		<table>
-			<tr>
-				<td>Usuario</td>
-				<td>
-				<input type="text" th:field="*{nombreusuario}"
-					id="nombreusuario" placeholder="Usuario">
-					</td>
-			</tr>
-			<tr>
-				<td>Password</td>
-				<td><input type="text" th:field="*{password}"
-					id="password" placeholder="Password"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type="submit" value="Login"></td>
-			</tr>
-			
-		</table>
-	</form>
-	
+
+	<div th:if="*{session.tipo_usuario_logeado==6}">
+
+
+		<form action="#" th:action="@{/categorias/do-edit-categoria}"
+			th:object="${categoria}" method="post">
+
+			<table>
+				<tr>
+					<td>Id</td>
+					 	
+					<td><input type="text" th:field="*{id}"
+						id="id" placeholder="Id" readonly></td> 
+					
+				</tr>
+				<tr>
+					<td>Categoria</td>
+					 	
+					<td><input type="text" th:field="*{nombrecategoria}"
+						id="nombrecategoria" placeholder="Categoria"></td> 
+					
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="Editar"></td>
+				</tr>
+
+			</table>
+		</form>
+	</div>
+<br>
+<a href="/categorias/c-list-categoria">Gestionar Categorias</a>
+
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>

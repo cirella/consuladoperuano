@@ -17,23 +17,65 @@
 	<div th:if="*{session.tipo_usuario_logeado==6}">
 
 
-		<form action="#" th:action="@{/distritos/do-edit-distrito}"
-			th:object="${distrito}" method="post">
+		<form action="#" th:action="@{/productos/do-edit-producto}"
+			th:object="${producto}" method="post">
 
 			<table>
 				<tr>
 					<td>Id</td>
-					 	
-					<td><input type="text" th:field="*{id}"
-						id="id" placeholder="Id" readonly></td> 
+					<td><input type="text" th:field="*{id}" id="id"
+						placeholder="Id"></td>
+
+				</tr>
+				<tr>
+					<td>Producto</td>
+					<td><input type="text" th:field="*{nombreproducto}" id="nombreproducto"
+						placeholder="Producto"></td>
+
+				</tr>
+
+				<tr>
+					<td>Precio</td>
+
+					<td><input type="text" th:field="*{precio}" id="precio"
+						placeholder="Precio"></td>
+
+				</tr>
+
+				<tr>
+					<td>Activo</td>
+
+					<td><select 
+						th:field="*{activado}">
+							<option th:each="tipoactivo : ${listaTipoactivo}" th:value="${tipoactivo.id}"
+								th:utext="${tipoactivo.tipo}" />
+					</select></td>
 					
 				</tr>
 				<tr>
-					<td>Distrito</td>
-					 	
-					<td><input type="text" th:field="*{nombredistrito}"
-						id="nombredistrito" placeholder="Distrito"></td> 
-					
+					<td>Descripción</td>
+
+					<td><input type="text" th:field="*{descripcion}"
+						id="descripcion" placeholder="Descripción"></td>
+
+				</tr>
+
+				<tr>
+					<td>Imagen</td>
+					<td><input type="text" th:field="*{imagen}"
+						id="imagen" placeholder="Imagen"></td>
+
+				</tr>
+				
+				<tr>
+					<td>Categoría</td>
+
+					<td><select 
+						th:field="*{categoria}">
+							<option th:each="categoria : ${listaCategoria}" th:value="${categoria.id}"
+								th:utext="${categoria.nombrecategoria}" />
+					</select></td>
+
 				</tr>
 				<tr>
 					<td></td>
@@ -42,10 +84,9 @@
 
 			</table>
 		</form>
-	</div>
-
 <br>
-<a href="/distritos/c-list-distrito">Gestionar Distritos</a>
+<a href="/productos/c-list-producto">Gestionar Productos</a>
+	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

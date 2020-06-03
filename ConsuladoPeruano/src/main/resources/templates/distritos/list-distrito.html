@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<div th:if="*{session.tipo_usuario_logeado==99}">
+<div th:if="*{session.tipo_usuario_logeado==6}">
 
  <a href="/distritos/c-add-distrito" >Nuevo Distrito</a>            
      
@@ -23,6 +23,8 @@
        <tr>
          <th>Id</th>
          <th>Distrito</th>
+         <th>Local</th>
+         
          <th>Edit</th>
          <th>Delete</th>
        </tr>       
@@ -31,7 +33,9 @@
          <tr th:each="distrito : ${listDistrito}">
             <td th:text="${distrito.id}"></td>
             <td th:text="${distrito.nombredistrito}"></td>
-            <td><a th:href="@{/distritos/c-edit-distrito/{id}(id=${distrito.id})}" >Editar</a></td>
+            <td th:text="${distrito.local}? ${distrito.local.nombrelocal}: 'Sin asignar'"></td>
+            
+           <td><a th:href="@{/distritos/c-edit-distrito/{id}(id=${distrito.id})}" >Editar</a></td>
             <td><a th:href="@{/distritos/do-delete-distrito/{id}(id=${distrito.id})}" >Eliminar</a></td>
          </tr>      
       </tbody>

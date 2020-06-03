@@ -13,28 +13,40 @@
 
 </head>
 <body>
-	<form th:action="@{/doValidaUsuario}" th:object="${usuario_a_validar}"
-		method="post">
-		<table>
-			<tr>
-				<td>Usuario</td>
-				<td>
-				<input type="text" th:field="*{nombreusuario}"
-					id="nombreusuario" placeholder="Usuario">
-					</td>
-			</tr>
-			<tr>
-				<td>Password</td>
-				<td><input type="text" th:field="*{password}"
-					id="password" placeholder="Password"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type="submit" value="Login"></td>
-			</tr>
-			
-		</table>
-	</form>
+
+<div th:if="*{session.tipo_usuario_logeado==6}">
+
+ <a href="/productos/c-add-producto" >Nuevo Producto</a>            
+     
+  <table>
+      <thead>
+       <tr>
+         <th>Id</th>
+         <th>Producto</th>
+         <th>Precio</th>
+         <th>Categoria</th>
+         <th>Activado</th>
+         
+         <th>Edit</th>
+         <th>Delete</th>
+       </tr>       
+      </thead>
+      <tbody>
+         <tr th:each="producto : ${listProducto}">
+            <td th:text="${producto.id}"></td>
+            <td th:text="${producto.nombreproducto}"></td>
+            <td th:text="${producto.precio}"></td>
+            <td th:text="${producto.categoria.nombrecategoria}"></td>      
+         	<td th:text="${listaTipoactivo[producto.activado]}"></td>
+            <td><a th:href="@{/productos/c-edit-producto/{id}(id=${producto.id})}" >Editar</a></td>
+            <td><a th:href="@{/productos/do-delete-producto/{id}(id=${producto.id})}" >Eliminar</a></td>
+         </tr>      
+      </tbody>
+      
+   </table>
+ <a href="/showHome" >Home</a>  
+</div>
+ 
 	
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

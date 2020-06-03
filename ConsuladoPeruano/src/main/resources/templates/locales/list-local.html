@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<div th:if="*{session.tipo_usuario_logeado==99}">
+<div th:if="*{session.tipo_usuario_logeado==6}">
 
  <a href="/locales/c-add-local" >Nuevo Local</a>            
      
@@ -31,6 +31,7 @@
          <tr th:each="local : ${listLocal}">
             <td th:text="${local.id}"></td>
             <td th:text="${local.nombrelocal}"></td>
+            
             <td><a th:href="@{/locales/c-edit-local/{id}(id=${local.id})}" >Editar</a></td>
             <td><a th:href="@{/locales/do-delete-local/{id}(id=${local.id})}" >Eliminar</a></td>
          </tr>      

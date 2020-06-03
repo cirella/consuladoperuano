@@ -54,6 +54,7 @@ public class EmpleadoServiceImpl implements EmpleadoService, Serializable {
 	}
 
 	@Override
+	@Transactional
 	public Empleado save(Empleado empleado, boolean crea_usuario) {
 		if (crea_usuario) {
 			Usuario usuario=usuarioService.makeUsuario(empleado.getEmail(), empleado.getTipoempleado());
@@ -66,6 +67,7 @@ public class EmpleadoServiceImpl implements EmpleadoService, Serializable {
 	}
 
 	@Override
+	@Transactional
 	public Empleado saveSinFK(Empleado empleado) {
 		Usuario usuario=usuarioService.findByIdUsuario(findById(empleado.getId()).getUsuario().getId());
 		empleado.setUsuario(usuario);

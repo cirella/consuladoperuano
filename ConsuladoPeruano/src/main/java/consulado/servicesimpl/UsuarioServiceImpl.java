@@ -40,15 +40,7 @@ public class UsuarioServiceImpl implements UsuarioService, Serializable{
 		return (List<Usuario>)usuarioRepository.findAll();
 	}
 
-/*	@Override
-	public Usuario findByIdUsuario(Long idUsuario) {
-		List<Usuario> usuarios=usuarioRepository.findByIdUsuario(idUsuario);
-		if (usuarios==null) {
-			return null;
-		} else {
-			return usuarios.get(0);
-		}
-	}*/
+
 
 	@Override
 	public Usuario findByNombreUsuario(String nombreusuario) {

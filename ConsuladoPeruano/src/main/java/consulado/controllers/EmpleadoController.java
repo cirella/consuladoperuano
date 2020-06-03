@@ -29,8 +29,11 @@ public class EmpleadoController {
 	
 	@GetMapping("/c-list-empleado")
     public String showListaEmpleados(Model model){
-
-    	model.addAttribute("listEmpleado", empleadoService.listAll());
+		
+		Constantes constantes=new Constantes();
+		model.addAttribute("listaTipoempleado",constantes.ArregloStringTiposEmpleado());
+		model.addAttribute("listaTipodocumento",constantes.ArregloStringTiposDocumento());
+		model.addAttribute("listEmpleado", empleadoService.listAll());
         return "/empleados/list-empleado";
     }
 	
@@ -53,10 +56,13 @@ public class EmpleadoController {
     	 if (result.hasErrors()) {
              return "/empleados/add-empleado";
          }
-         
+
     	 empleado=empleadoService.save(empleado,true);
-    	 model.addAttribute("empleado", empleado);
-    	 return "/empleados/show-empleado-usuario";
+    	 Constantes constantes=new Constantes();
+ 		model.addAttribute("listaTipoempleado",constantes.ArregloStringTiposEmpleado());
+ 		model.addAttribute("listaTipodocumento",constantes.ArregloStringTiposDocumento());
+ 		model.addAttribute("listEmpleado", empleadoService.listAll());
+         return "/empleados/list-empleado";
     }
     
     
@@ -84,8 +90,11 @@ public class EmpleadoController {
          
     	empleadoService.saveSinFK(empleado);
 
-     	model.addAttribute("listEmpleado", empleadoService.listAll());
-        return "/empleados/list-empleado";
+    	Constantes constantes=new Constantes();
+ 		model.addAttribute("listaTipoempleado",constantes.ArregloStringTiposEmpleado());
+ 		model.addAttribute("listaTipodocumento",constantes.ArregloStringTiposDocumento());
+ 		model.addAttribute("listEmpleado", empleadoService.listAll());
+         return "/empleados/list-empleado";
     }
     
     
@@ -97,8 +106,11 @@ public class EmpleadoController {
         Empleado empleado = empleadoService.findById(id);
         empleadoService.delete(empleado);
         
-    	model.addAttribute("listEmpleado", empleadoService.listAll());
-        return "/empleados/list-empleado";
+        Constantes constantes=new Constantes();
+ 		model.addAttribute("listaTipoempleado",constantes.ArregloStringTiposEmpleado());
+ 		model.addAttribute("listaTipodocumento",constantes.ArregloStringTiposDocumento());
+ 		model.addAttribute("listEmpleado", empleadoService.listAll());
+         return "/empleados/list-empleado";
     }
     
 	

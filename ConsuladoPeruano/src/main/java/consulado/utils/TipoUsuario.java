@@ -1,7 +1,7 @@
 package consulado.utils;
 
 public class TipoUsuario {
-	//ADMIN_TIENDA(1), COCINA(2), ATENCION_PUBLICO(3), DELIVERY(4), CLIENTE(5),  SUPER_ADMIN(99);
+	//ADMIN_TIENDA(1), COCINA(2), ATENCION_PUBLICO(3), DELIVERY(4), CLIENTE(5),  SUPER_ADMIN(6);
 	
 	private String tipo;
 	private int id;

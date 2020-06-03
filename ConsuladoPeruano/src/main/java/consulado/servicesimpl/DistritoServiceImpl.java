@@ -45,8 +45,6 @@ public class DistritoServiceImpl implements DistritoService, Serializable {
 
 	@Override
 	public Distrito findById(Long id) {
-		// TODO Auto-generated method stub
-		//return distritoRepository.findById(id);
 		
 		List<Distrito> distritos=distritoRepository.findByIdDistrito(id);
 		if (distritos.isEmpty()) {

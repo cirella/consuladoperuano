@@ -10,9 +10,8 @@ import org.springframework.stereotype.Service;
 
 
 import consulado.entities.Producto;
-
 import consulado.repositories.ProductoRepository;
-
+import consulado.services.LocalProductoService;
 import consulado.services.ProductoService;
 
 @Service
@@ -24,18 +23,24 @@ public class ProductoServiceImpl  implements ProductoService, Serializable{
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private ProductoRepository productoRepository;
+	@Autowired
+	private LocalProductoService localproductoService;
 	
 	@Override
 	@Transactional
 	public Producto save(Producto producto) {
-		return productoRepository.save(producto);
+		Producto prod=productoRepository.save(producto);
+		if (producto.getActivado()==0) {
+			localproductoService.deleteByIdProducto(producto.getId());
+		}
+		return prod;
 	}
 
 	@Override
 	@Transactional
 	public void delete(Producto producto) {
-		productoRepository.delete(producto);
-		
+		localproductoService.deleteByIdProducto(producto.getId());
+		productoRepository.delete(producto);		
 	}
 
 	@Override

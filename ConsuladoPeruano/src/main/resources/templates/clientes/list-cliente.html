@@ -16,26 +16,42 @@
 
 	<div th:if="*{session.tipo_usuario_logeado==6}">
 
+		<a href="/clientes/c-add-cliente">Nuevo Cliente</a>
 
-		<form action="#" th:action="@{/locales/do-add-local}"
-			th:object="${local}" method="post">
-
-			<table>
+		<table>
+			<thead>
 				<tr>
-					<td>Local</td>
-
-					<td><input type="text" th:field="*{nombrelocal}"
-						id="nombrelocal" placeholder="Local"></td>
-
+					<th>Id</th>
+					<th>Nombres</th>
+					<th>Apellidos</th>
+					<th>Tipo Documento</th>
+					<th>Numero Documento</th>
+					<th>Email</th>
+					<th>Telefono</th>
+					<th>Id_Usuario</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
 				</tr>
-				<tr>
-					<td></td>
-					<td><input type="submit" value="Agregar"></td>
+			</thead>
+			<tbody>
+				<tr th:each="cliente : ${listCliente}">
+					<td th:text="${cliente.id}"></td>
+					<td th:text="${cliente.nombres}"></td>
+					<td th:text="${cliente.apellidos}"></td>
+					<td th:text="${listaTipodocumento[cliente.tipodocumento]}"></td>
+					<td th:text="${cliente.numerodocumento}"></td>
+					<td th:text="${cliente.email}"></td>
+					<td th:text="${cliente.telefono}"></td>
+					<td th:text="${cliente.usuario}"></td>
+					
+					<td><a th:href="@{/clientes/c-edit-cliente/{id}(id=${cliente.id})}">Editar</a></td>
+					<td><a
+						th:href="@{/clientes/do-delete-cliente/{id}(id=${cliente.id})}">Eliminar</a></td>
 				</tr>
+			</tbody>
 
-			</table>
-<br>
-<a href="/locales/c-list-local">Gestionar Locales</a>
+		</table>
+		<a href="/showHome">Home</a>
 	</div>
 
 

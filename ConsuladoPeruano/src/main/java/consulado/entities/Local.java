@@ -1,11 +1,13 @@
 package consulado.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 
 @Entity
@@ -16,6 +18,8 @@ public class Local implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String nombrelocal;
+	@OneToMany(mappedBy="local")
+	private List<LocalProducto> localesproductos;
 	
 	@PrePersist
 	public void TrimAllFields() {
@@ -43,10 +47,12 @@ public class Local implements Serializable {
 		this.nombrelocal = nombrelocal;
 	}
 
-	public Local(long id, String nombrelocal) {
-		super();
-		this.id = id;
-		this.nombrelocal = nombrelocal;
+	public List<LocalProducto> getLocalesproductos() {
+		return localesproductos;
+	}
+
+	public void setLocalesproductos(List<LocalProducto> localesproductos) {
+		this.localesproductos = localesproductos;
 	}
 
 	@Override
@@ -54,6 +60,7 @@ public class Local implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((localesproductos == null) ? 0 : localesproductos.hashCode());
 		result = prime * result + ((nombrelocal == null) ? 0 : nombrelocal.hashCode());
 		return result;
 	}
@@ -69,6 +76,11 @@ public class Local implements Serializable {
 		Local other = (Local) obj;
 		if (id != other.id)
 			return false;
+		if (localesproductos == null) {
+			if (other.localesproductos != null)
+				return false;
+		} else if (!localesproductos.equals(other.localesproductos))
+			return false;
 		if (nombrelocal == null) {
 			if (other.nombrelocal != null)
 				return false;
@@ -79,10 +91,17 @@ public class Local implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Local [id=" + id + ", nombrelocal=" + nombrelocal + "]";
+		return "Local [id=" + id + ", nombrelocal=" + nombrelocal + ", localesproductos=" + localesproductos + "]";
 	}
 
+	public Local(long id, String nombrelocal, List<LocalProducto> localesproductos) {
+		super();
+		this.id = id;
+		this.nombrelocal = nombrelocal;
+		this.localesproductos = localesproductos;
+	}
 
+	
 
 
 

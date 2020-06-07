@@ -23,63 +23,47 @@ public class LocalProducto implements Serializable {
 	@JoinColumn(nullable = true)
 	private Local local;
 	private int stock;
-	
-	
 
 	public LocalProducto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-
+	public String getProductoNombreCategoria() {
+		return this.producto.getCategoria().getNombrecategoria();
+	}
 
 	public long getId() {
 		return id;
 	}
 
-
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
-
 
 	public Producto getProducto() {
 		return producto;
 	}
 
-
-
 	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
-
-
 
 	public Local getLocal() {
 		return local;
 	}
 
-
-
 	public void setLocal(Local local) {
 		this.local = local;
 	}
-
-
 
 	public int getStock() {
 		return stock;
 	}
 
-
-
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
-
-
 
 	@Override
 	public int hashCode() {
@@ -91,8 +75,6 @@ public class LocalProducto implements Serializable {
 		result = prime * result + stock;
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -120,14 +102,10 @@ public class LocalProducto implements Serializable {
 		return true;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "LocalProducto [id=" + id + ", producto=" + producto + ", local=" + local + ", stock=" + stock + "]";
 	}
-
-
 
 	public LocalProducto(long id, Producto producto, Local local, int stock) {
 		super();
@@ -137,6 +115,4 @@ public class LocalProducto implements Serializable {
 		this.stock = stock;
 	}
 
-	
-	
 }

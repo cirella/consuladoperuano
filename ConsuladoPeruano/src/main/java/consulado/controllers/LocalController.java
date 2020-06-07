@@ -7,14 +7,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 import consulado.entities.Distrito;
 import consulado.entities.Local;
+
 import consulado.services.DistritoService;
+import consulado.services.LocalProductoService;
 import consulado.services.LocalService;
+
 
 @Controller
 @RequestMapping("/locales")
@@ -23,6 +28,9 @@ public class LocalController {
     private DistritoService distritoService;
 	@Autowired
     private LocalService localService;
+	@Autowired
+    private LocalProductoService localProductoService;
+	
 	
     @GetMapping("/c-list-local")
     public String showListaLocales(Model model){
@@ -118,6 +126,40 @@ public class LocalController {
    	 model.addAttribute("listLocal", localService.listAll());
         return "/locales/list-local";
     }
+    
+    
+    
+    @GetMapping("/c-edit-local-stock/{id}")
+    public String showEditarLocalStock(@PathVariable("id") long id, Model model) {
+        
+    	Local local = localService.findById(id);
+    	localProductoService.cargaLocalProductoParaLocal(local);
+    	local = localService.findById(id);
+    	
+    	int[] indexes = new int[local.getLocalesproductos().size()];
+		for(int i=0;i<local.getLocalesproductos().size() ; i++) {
+			indexes[i]=i;
+		}
+		
+    	model.addAttribute("indexes", indexes);
+        model.addAttribute("local", local);
+        return "/locales/edit-local-stock";
+        
+    }
+    
+    @PostMapping("/do-edit-local-stock")
+    public String doEditLocalProducto(@Valid Local local, BindingResult result, Model model){
+    	 if (result.hasErrors()) {
+             return "/locales/edit-local-producto";
+         }
+         
+    	System.out.print(local.toString()+"\n\r");
+    	localProductoService.actualizaStockLocal(local);
+
+    	 model.addAttribute("listLocal", localService.listAll());
+         return "/locales/list-local";
+    }
+    
     
     
 }

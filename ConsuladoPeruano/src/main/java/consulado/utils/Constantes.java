@@ -83,4 +83,36 @@ public class Constantes {
 		
 		return elementos;
 	}
+	
+	
+	public int findByTipoDocumento(String tipo) {
+		for(TipoDocumento documento: TiposDocumento) {
+			if (documento.getTipo()==tipo) {
+				return documento.getId();
+			}
+				
+		}		
+		return -1;
+	}
+	
+	public int findByTipoEmpleado(String tipo) {
+		for(TipoEmpleado empleado: TiposEmpleado) {
+			if (empleado.getTipo()==tipo) {
+				return empleado.getId();
+			}
+				
+		}		
+		return -1;
+	}
+	
+	public int findByTipoUsuario(String tipo) {
+		for(TipoUsuario usuario: TiposUsuario) {
+			if (usuario.getTipo()==tipo) {
+				return usuario.getId();
+			}
+				
+		}		
+		return -1;
+	}
+	
 };

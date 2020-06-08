@@ -43,6 +43,7 @@ public class ClienteServiceImpl implements ClienteService, Serializable  {
 		if (crea_usuario) {
 			Constantes constantes = new Constantes();
 			Usuario usuario=usuarioService.makeUsuario(cliente.getEmail(), constantes.findByTipoUsuario("Cliente"));
+			usuario.setPassword(cliente.getNumerodocumento());
 			usuario=usuarioService.save(usuario);
 			cliente.setUsuario(usuario);
 			this.save(cliente);

@@ -10,49 +10,124 @@
 	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
 	crossorigin="anonymous">
 <title>Login</title>
-
+  <!-- Favicon -->
+  <link rel="icon" href="../assets/img/brand/favicon.png" type="image/png">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  <!-- Icons -->
+  <link rel="stylesheet" href="../assets/vendor/nucleo/css/nucleo.css" type="text/css">
+  <link rel="stylesheet" href="../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+  <!-- Page plugins -->
+  <!-- Argon CSS -->
+  <link rel="stylesheet" href="../assets/css/argon.css?v=1.2.0" type="text/css">
 </head>
+
+<div th:if="*{session.tipo_usuario_logeado==99}">
 <body>
-
-<div th:if="*{session.tipo_usuario_logeado==6}">
-
- <a href="/locales/c-add-local" >Nuevo Local</a>            
-     
-  <table>
-      <thead>
-       <tr>
-         <th>Id</th>
-         <th>Local</th>
-         <th>Stock</th>
-         <th>Edit</th>
-         <th>Delete</th>
-       </tr>       
-      </thead>
-      <tbody>
-         <tr th:each="local : ${listLocal}">
-            <td th:text="${local.id}"></td>
-            <td th:text="${local.nombrelocal}"></td>
-            <td><a th:href="@{/locales/c-edit-local-stock/{id}(id=${local.id})}" >Stock</a></td>
-            <td><a th:href="@{/locales/c-edit-local/{id}(id=${local.id})}" >Editar</a></td>
-			<td><a th:href="@{/locales/do-delete-local/{id}(id=${local.id})}" >Eliminar</a></td>
-         </tr>      
-      </tbody>
-      
-   </table>
- <a href="/showHome" >Home</a>  
-</div>
+  <!-- Sidenav -->
+  <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+    <div class="scrollbar-inner">
+      <!-- Brand -->
+      <div class="sidenav-header  align-items-center">
+        <a class="navbar-brand" href="javascript:void(0)">
+          <img src="../assets/img/brand/logo_consulado_chico_black.png" class="navbar-brand-img-consulado" alt="Consulado Peruano">
+        </a>
+      </div>
+      <div class="navbar-inner">
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="sidenav-collapse-main">
+          <!-- Nav items -->
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="/showHome">
+                <i class="ni ni-tv-2 text-primary"></i>
+                <span class="nav-link-text">Inicio</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/empleados/c-list-empleado">
+                <i class="ni ni-planet text-orange"></i>
+                <span class="nav-link-text">Gestionar Empleados</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/locales/c-list-local">
+                <i class="ni ni-pin-3 text-primary"></i>
+                <span class="nav-link-text">Gestionar Locales</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/distritos/c-list-distrito">
+                <i class="ni ni-key-25 text-info"></i>
+                <span class="nav-link-text">Gestionar Distritos</span>
+              </a>
+            </li>
+          </ul>
+          <!-- Divider -->
+          <hr class="my-3">
+          <!-- Heading -->
+          
+          <!-- Navigation -->
+          
+        </div>
+      </div>
+    </div>
+  </nav>
  
-	
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-		crossorigin="anonymous"></script>
+ 
+ 
+ 
+  <!-- Main content -->
+  
+  <div class="main-content" id="panel">
+<a href="/locales/c-add-local" class="btn btn-primary my-4">Nuevo Local</a>
+
+
+
+	<div class="table-responsive">
+	              <!-- Projects table -->
+	              <table class="table align-items-center table-flush">
+	                <thead class="thead-light">
+	                  <tr>
+	                               
+	                  
+	                    <th scope="col">Id</th>
+	                    <th scope="col">Local</th>
+	                    <th scope="col">Edit</th>
+	                    <th scope="col">Delete</th>
+	                  </tr>
+	                </thead>
+						<tbody>
+				         <tr th:each="local : ${listLocal}">
+				            <td th:text="${local.id}"></td>
+				            <td th:text="${local.nombrelocal}"></td>
+				            <td><a th:href="@{/locales/c-edit-local/{id}(id=${local.id})}" >Editar</a></td>
+				            <td><a th:href="@{/locales/do-delete-local/{id}(id=${local.id})}" >Eliminar</a></td>
+				         </tr>      
+				       </tbody>
+      </table>
+    </div>
+	  
+	  <div class="col-lg-6 col-5 text-right col-xl-12"> <a href="/locales/c-list-local" class="btn btn-primary my-4">Atrás</a>
+      </div>
+	        
+</div>
+  
+  
+
+  
+<!-- Argon Scripts -->
+  <!-- Core -->
+  <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
+  <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
+  <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+  <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+  <!-- Optional JS -->
+  <script src="../assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
+  <!-- Argon JS -->
+  <script src="../assets/js/argon.js?v=1.2.0"></script>
 </body>
+</div>
 </html>

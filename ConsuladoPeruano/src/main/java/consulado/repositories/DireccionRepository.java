@@ -14,4 +14,8 @@ public interface DireccionRepository  extends JpaRepository<Direccion, Long>{
 	List<Direccion> findByLatitudLongitud(double latitud, double longitud);
 	@Query("select d from Direccion d where d.nombredireccion like ?1%")
 	List<Direccion> findByDireccion(String direccion);
+	@Query("select d from Direccion d where d.id=?1")
+	List<Direccion> findByIdDireccion(Long id);
+	@Query("select d from Direccion d where d.cliente.id=?1")
+	List<Direccion> findByIdCliente(Long id);
 }

@@ -16,11 +16,11 @@
 
 	<div th:if="*{session.tipo_usuario_logeado==6}">
 
-		<a href="/clientes/c-add-cliente">Nuevo Cliente</a>
+		<a href="/pedidos/c-add-pedido">Nuevo Pedido</a>
 <br>
-Búsqueda de clientes
+Búsqueda de Pedidos
 
-		<form action="#" th:action="@{/clientes/do-buscar-cliente-list}"
+		<form action="#" th:action="@{/pedidos/do-buscar-pedido-list}"
 			th:object="${cliente}" method="post">
 			
 			<input type="text" th:field="*{apellidos}" id="apellidos" placeholder="Apellidos a buscar...">
@@ -35,22 +35,21 @@ Búsqueda de clientes
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Nombres</th>
-					<th>Apellidos</th>
-					<th>Tipo Documento</th>
-					<th>Numero Documento</th>
-					<th>Email</th>
+					<th>Nombre Completo</th>
 					<th>Telefono</th>
+					<th>Precio Venta</th>
+					
 					<th>Editar</th>
 					<th>Eliminar</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="cliente : ${listCliente}">
-					<td th:text="${cliente.id}"></td>
-					<td th:text="${cliente.nombres}"></td>
-					<td th:text="${cliente.apellidos}"></td>
-					<td th:text="${listaTipodocumento[cliente.tipodocumento]}"></td>
+				<tr th:each="pedido : ${listPedido}">
+					<td th:text="${pedido.id}"></td>
+					<td th:text="${pedido.cliente.nombres},${pedido.cliente.apellidos}"></td>
+					<td th:text="${pedido.cliente.telefono}"></td>
+					
+					<td th:text="${pedido.precioventa}"></td>
 					<td th:text="${cliente.numerodocumento}"></td>
 					<td th:text="${cliente.email}"></td>
 					<td th:text="${cliente.telefono}"></td>

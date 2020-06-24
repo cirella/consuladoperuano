@@ -17,7 +17,7 @@
 	<div >
 
 
-		<form action="#" th:action="@{/clientes/do-add-cliente}"
+		<form action="#" th:action="@{/registro/do-add-cliente}"
 			th:object="${cliente}" method="post">
 
 			<table>
@@ -67,23 +67,15 @@
 						placeholder="Email"></td>
 
 				</tr>
-
-				<tr>
-					<td>Usuario</td>
-
-					<td>El usuario se generá automáticamente</td>
-
-				</tr>
-
 				<tr>
 					<td></td>
-					<td><input type="submit" value="Agregar"></td>
+					<td><input type="submit" value="Siguiente"></td>
 				</tr>
 
 			</table>
 		</form>
 <br>
-<a href="/clientes/c-list-cliente">Gestionar Clientes</a>
+<a href="/">Cancelar</a>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

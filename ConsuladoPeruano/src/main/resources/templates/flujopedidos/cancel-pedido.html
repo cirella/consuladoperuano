@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+<title>Login</title>
+
+</head>
+<body>
+
+
+	<br>
+
+	<table>
+		<tr>
+			<td>Id</td>
+			<td th:text="${pedido.id}"></td>
+		</tr>
+		<tr>
+			<td>Hora Pedido</td>
+			<td th:text="${pedido.horapedido}"></td>
+		</tr>
+		
+		<tr>
+			<td>Observacion</td>
+			<td th:text="${pedido.observacion}"></td>
+		</tr>
+		<tr>
+			<td>Precio</td>
+			<td th:text="${pedido.precioventa}"></td>
+		</tr>
+	</table>
+	<br> Detalle del pedido
+	<br>
+	<table>
+		<tr>
+			<td>Nombre Producto</td>
+			<td>Cantidad</td>
+			<td>Subtotal</td>
+		</tr>
+		<tr th:each="detallepedido : ${pedido.detallespedidos}">
+
+			<td th:text="${detallepedido.producto.nombreproducto}"></td>
+			<td th:text="${detallepedido.cantidad}"></td>
+			<td th:text="${detallepedido.subtotal}"></td>
+		<tr>
+	</table>
+
+					<form th:action="@{/flujopedidos/do-pedido-cancelado}" method="post">
+						<input type="hidden" id="id" name="id" th:value="${pedido.id}">
+						Motivo de cancelación o rechazo<br>
+						<textarea rows="7" cols="40" name="motivo" id="motivo" placeholder="Ingrese el motivo por el cual el cliente solicita la cancelación o rechazo del pedido..."></textarea>
+						<br>
+						<input type="submit" value="Ingresar cancelación del cliente">
+					</form>
+
+	<br>
+
+
+	<a  href="/flujopedidos/c-list-my-pedido-asginado">Regresar</a>
+
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+		crossorigin="anonymous"></script>
+</body>
+</html>

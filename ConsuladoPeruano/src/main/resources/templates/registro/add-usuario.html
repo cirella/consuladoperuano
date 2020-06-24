@@ -14,38 +14,43 @@
 </head>
 <body>
 
-<div >
-
- <a href="/categorias/c-add-categoria" >Nueva Categoria</a>            
-     
-  <table>
-      <thead>
-       <tr>
-         <th>Id</th>
-         <th>Categoría</th>
-         
-         <th>Edit</th>
-         <th>Delete</th>
-       </tr>       
-      </thead>
-      <tbody>
-         <tr th:each="categoria : ${listCategoria}">
-            <td th:text="${categoria.id}"></td>
-            <td th:text="${categoria.nombrecategoria}"></td>
-            
-           <td><a th:href="@{/categorias/c-edit-categoria/{id}(id=${categoria.id})}" >Editar</a></td>
-            <td><a th:href="@{/categorias/do-delete-categoria/{id}(id=${categoria.id})}" >Eliminar</a></td>
-         </tr>      
-      </tbody>
-      
-   </table>
-
- <a href="/home" >Home</a>  
+	<div>
 
 
-</div>
- 
-	
+		<form action="#" th:action="@{/registro/do-add-usuario}"
+			th:object="${usuario}" method="post">
+			<table>
+			<tr>
+					<td>Id</td>
+					<td><input type="text" th:field="*{id}" id="id"
+						placeholder="Id" readonly></td>
+
+				</tr>
+			
+				<tr>
+					<td>Usuario</td>
+					<td><input type="text" th:field="*{nombreusuario}" id="nombreusuario"
+						placeholder="Usuario" ></td>
+
+				</tr>
+
+				<tr>
+					<td>Password</td>
+
+					<td><input type="password" th:field="*{password}" id="password"
+						placeholder="" required></td>
+
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="Siguiente"></td>
+				</tr>
+			</table>
+			</form>
+<br>
+<a href="/">Cancelar</a>
+	</div>
+
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 		crossorigin="anonymous"></script>

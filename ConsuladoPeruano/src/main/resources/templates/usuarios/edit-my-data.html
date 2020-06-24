@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
@@ -17,10 +17,16 @@
 	<div >
 
 
-		<form action="#" th:action="@{/clientes/do-add-cliente}"
+		<form action="#" th:action="@{/usuarios/do-edit-my-data}"
 			th:object="${cliente}" method="post">
 
 			<table>
+				<tr>
+					<td>Id</td>
+					<td><input type="text" th:field="*{id}" id="id"
+						placeholder="Id"></td>
+
+				</tr>
 				<tr>
 					<td>Nombres</td>
 					<td><input type="text" th:field="*{nombres}" id="nombres"
@@ -39,12 +45,11 @@
 				<tr>
 					<td>Tipo de Documento</td>
 
-					<td><select 
-						th:field="*{tipodocumento}">
-							<option th:each="tipodocumento : ${listaTipodocumento}" th:value="${tipodocumento.id}"
-								th:utext="${tipodocumento.tipo}" />
+					<td><select th:field="*{tipodocumento}">
+							<option th:each="tipodocumento : ${listaTipodocumento}"
+								th:value="${tipodocumento.id}" th:utext="${tipodocumento.tipo}" />
 					</select></td>
-					
+
 				</tr>
 				<tr>
 					<td>Número de Documento</td>
@@ -52,7 +57,7 @@
 					<td><input type="text" th:field="*{numerodocumento}"
 						id="numerodocumento" placeholder="Número de Documento"></td>
 
-				</tr>				
+				</tr>
 				<tr>
 					<td>Teléfono Celular</td>
 					<td><input type="text" th:field="*{telefono}" id="telefono"
@@ -68,22 +73,23 @@
 
 				</tr>
 
-				<tr>
-					<td>Usuario</td>
 
-					<td>El usuario se generá automáticamente</td>
-
-				</tr>
 
 				<tr>
 					<td></td>
-					<td><input type="submit" value="Agregar"></td>
+					<td><input type="submit" value="Actualizar"></td>
 				</tr>
 
 			</table>
 		</form>
-<br>
-<a href="/clientes/c-list-cliente">Gestionar Clientes</a>
+
+
+		
+
+
+
+
+		<br> <a href="/home">Home</a>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

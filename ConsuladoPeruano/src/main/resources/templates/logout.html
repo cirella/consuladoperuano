@@ -13,38 +13,10 @@
 
 </head>
 <body>
+Acaba de terminar su sesion
 
-<div >
-
- <a href="/categorias/c-add-categoria" >Nueva Categoria</a>            
-     
-  <table>
-      <thead>
-       <tr>
-         <th>Id</th>
-         <th>Categoría</th>
-         
-         <th>Edit</th>
-         <th>Delete</th>
-       </tr>       
-      </thead>
-      <tbody>
-         <tr th:each="categoria : ${listCategoria}">
-            <td th:text="${categoria.id}"></td>
-            <td th:text="${categoria.nombrecategoria}"></td>
-            
-           <td><a th:href="@{/categorias/c-edit-categoria/{id}(id=${categoria.id})}" >Editar</a></td>
-            <td><a th:href="@{/categorias/do-delete-categoria/{id}(id=${categoria.id})}" >Eliminar</a></td>
-         </tr>      
-      </tbody>
-      
-   </table>
-
- <a href="/home" >Home</a>  
-
-
-</div>
- 
+ <br>
+ <a href="/" >Index</a>   
 	
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

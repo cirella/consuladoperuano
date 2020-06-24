@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<div th:if="*{session.tipo_usuario_logeado==6}">
+<div >
 
  <a href="/productos/c-add-producto" >Nuevo Producto</a>            
      
@@ -26,7 +26,7 @@
          <th>Precio</th>
          <th>Categoria</th>
          <th>Activado</th>
-         
+         <th>Imagen</th>         
          <th>Edit</th>
          <th>Delete</th>
        </tr>       
@@ -37,14 +37,15 @@
             <td th:text="${producto.nombreproducto}"></td>
             <td th:text="${producto.precio}"></td>
             <td th:text="${producto.categoria.nombrecategoria}"></td>      
-         	<td th:text="${listaTipoactivo[producto.activado]}"></td>
+         	<td th:text="${listaTipoactivo[producto.activado-1]}"></td>
+         	<td><a th:href="@{/productos/c-edit-producto-imagen/{id}(id=${producto.id})}" >Imagen</a></td>
             <td><a th:href="@{/productos/c-edit-producto/{id}(id=${producto.id})}" >Editar</a></td>
             <td><a th:href="@{/productos/do-delete-producto/{id}(id=${producto.id})}" >Eliminar</a></td>
          </tr>      
       </tbody>
       
    </table>
- <a href="/showHome" >Home</a>  
+ <a href="/home" >Home</a>  
 </div>
  
 	

@@ -14,7 +14,7 @@
 </head>
 <body>
 
-	<div th:if="*{session.tipo_usuario_logeado==6}">
+	<div>
 
 
 		</br> Actualización de stock del Local: <span th:text="${local.nombrelocal}"></span>
@@ -61,7 +61,10 @@
 		<br>
 
 
-		<br> <a href="/locales/c-list-local">Gestionar Locales</a>
+		<br> 
+		<div >
+		<a th:if="${session.tipo_usuario_logeado == 6}" href="/locales/c-list-local"  >Gestionar Locales</a>
+		<a th:if="${session.tipo_usuario_logeado == 1}" href="/home"  >Home</a>
 	</div>
 
 

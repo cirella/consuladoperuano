@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+<title>Login</title>
+
+</head>
+<body>
+
+	<div >
+
+
+		
+			<table>
+				<tr>
+					<td>Id</td>
+					<td th:text="${producto.id}"></td>
+				</tr>
+				<tr>
+					<td>Producto</td>
+					<td th:text="${producto.nombreproducto}"></td>
+				</tr>
+				<tr>
+					<td>Descripción</td>
+					<td th:text="${producto.descripcion}"></td>
+				</tr>
+
+				<tr>
+					<td>Imagen Actual</td>
+					<td> 
+					<span th:if="${producto.imagen == ''}">Producto sin imagen</span>
+					<!-- 
+					<img th:src="@{'/Screenshot_2.png'}" />  ESTO NECESARIO
+					
+					 -->
+					
+				 <img  th:if="${producto.imagen != ''}" th:src="'/'+${producto.imagen}" width="200" height="200"/>  
+					</td>
+				</tr>
+				
+				<tr>
+					<td>Categoría</td>
+					<td th:text="${producto.categoria.nombrecategoria}"></td>
+
+				</tr>
+			</table>
+			<a th:href="@{/productos/c-edit-producto/{id}(id=${producto.id})}" >Cambiar datos del producto</a>
+			<br>
+			<br>
+			Cambiar imagen del producto
+			<br>
+			
+				<form th:action="@{/productos/do-edit-producto-imagen}" enctype="multipart/form-data" method="post">
+		
+					<input type="hidden" th:value="${producto.id}" id="producto_id" name="producto_id">
+					Archivo: 
+					<input type="file" name="archivoImagen" id="archivoImagen">
+					<br>	
+					<button type="submit" >Guardar</button>
+				</form>
+			
+		<!-- 
+			<form th:action="@{/productos/do-edit-producto-imagen}"" enctype="multipart/form-data" method="post">
+				<input type="hidden" th:value="${producto.id}" name="producto_id" id="producto_id">
+				Archivo: 
+				<input type="file" class="form-control-file"
+					name="archivoImagen" id="archivoImagen">
+				<br>	
+				<button type="submit" class="btn btn-primary">Cargar Imagen</button>
+			</form>
+			
+			 -->
+<br>
+<a href="/productos/c-add-producto">Agregar Nuevo Producto</a>
+
+<br>
+<a href="/productos/c-list-producto">Gestionar Productos</a>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+		crossorigin="anonymous"></script>
+</body>
+</html>

@@ -14,17 +14,17 @@
 </head>
 <body>
 
-	<div th:if="*{session.tipo_usuario_logeado==6}">
+	<div>
 
 
 		<form action="#" th:action="@{/productos/do-add-producto}"
 			th:object="${producto}" method="post">
-
+			<input type="hidden" th:field="*{imagen}" id="imagen">
 			<table>
 				<tr>
 					<td>Producto</td>
-					<td><input type="text" th:field="*{nombreproducto}" id="nombreproducto"
-						placeholder="Producto"></td>
+					<td><input type="text" th:field="*{nombreproducto}"
+						id="nombreproducto" placeholder="Producto"></td>
 
 				</tr>
 
@@ -39,12 +39,11 @@
 				<tr>
 					<td>Activo</td>
 
-					<td><select 
-						th:field="*{activado}">
-							<option th:each="tipoactivo : ${listaTipoactivo}" th:value="${tipoactivo.id}"
-								th:utext="${tipoactivo.tipo}" />
+					<td><select th:field="*{activado}">
+							<option th:each="tipoactivo : ${listaTipoactivo}"
+								th:value="${tipoactivo.id}" th:utext="${tipoactivo.tipo}" />
 					</select></td>
-					
+
 				</tr>
 				<tr>
 					<td>Descripción</td>
@@ -54,19 +53,13 @@
 
 				</tr>
 
-				<tr>
-					<td>Imagen</td>
-					<td><input type="text" th:field="*{imagen}"
-						id="imagen" placeholder="Imagen"></td>
 
-				</tr>
-				
 				<tr>
 					<td>Categoría</td>
 
-					<td><select 
-						th:field="*{categoria}">
-							<option th:each="categoria : ${listaCategoria}" th:value="${categoria.id}"
+					<td><select th:field="*{categoria}">
+							<option th:each="categoria : ${listaCategoria}"
+								th:value="${categoria.id}"
 								th:utext="${categoria.nombrecategoria}" />
 					</select></td>
 
@@ -78,8 +71,7 @@
 
 			</table>
 		</form>
-<br>
-<a href="/productos/c-list-producto">Gestionar Productos</a>
+		<br> <a href="/productos/c-list-producto">Gestionar Productos</a>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

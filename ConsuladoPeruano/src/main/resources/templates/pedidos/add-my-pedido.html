@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+<title>Login</title>
+
+</head>
+<body>
+
+<h4>Resumen pedido</h4>
+<br>
+<div >
+Llevas <span th:text="${session.cantidad_total}"></span> productos por S/ <span th:text="${session.cuenta_total}"></span>
+</div>
+<br>
+		<a href="/pedidos/c-checkout-my-pedido">Ir al checkout</a>
+
+	<br>
+
+		Carrito de Compras actual
+
+					    <ul>
+					         <li th:each="detallepedido : ${session.detallespedidos}">
+					         <span th:text="${detallepedido.cantidad}+'x '+${detallepedido.producto.nombreproducto}"> </span>
+					         
+					         
+					         <a th:href="@{/pedidos/do-delete-my-detallepedido/{id}(id=${detallepedido.producto.id})}" >X</a>
+					         <br>
+					         </li>
+					         
+					    </ul>
+
+
+	<br>	
+
+<br>
+
+<a href="/pedidos/c-select-categoria">Cambia de categoría</a>
+
+<br>
+
+	<table>
+		<tr>
+
+			<td>Imagen</td>
+			<td>Nombre Prod</td>
+	
+		
+			<td>Cantidad / Stock</td>
+		</tr>
+		<tr th:each="producto,status : ${productos}">
+			<td><img  th:if="${producto.imagen != ''}" th:src="'/'+${producto.imagen}" width="50" height="50"/> 
+			<span th:if="${producto.imagen == ''}">Producto sin imagen</span>
+			
+			</td>
+			<td><span th:text="${producto.nombreproducto}"></span><br>
+			S/ <span th:text="${producto.precio}"></span>
+			</td>
+	
+			
+			<td>
+			<form action="#" th:id="${'formulario_'+__${status.index}__}" th:action="@{/pedidos/do-add-my-detallepedido}" method="post" onsubmit="return validacion(this)">
+					<input type="hidden" name="producto_id" th:value="${producto.id}">
+					<input width="100px" type="number" th:id="${'cantidad_'+__${status.index}__}" name="cantidad" th:value="${cantidades[__${status.index}__]}" 
+					min="0" th:max="${stocks[__${status.index}__]}"
+					>
+					/<span th:text="${stocks[__${status.index}__]}"></span>
+			<input type="hidden" th:id="${'stock_'+__${status.index}__}" th:value="${stocks[__${status.index}__]}">
+					<input type="submit" value="+" >						
+			</form>
+			
+			
+			</td>
+
+		<tr>
+		
+	</table>
+<a href="/pedidos/c-list-my-pedido">Cancelar Pedido</a>
+
+<script>
+function validacion(form) {
+	var nombre_form=form.id;
+
+	
+	var nombre_stock='stock_'+nombre_form.substring(11,nombre_form.length); 
+	var nombre_cantidad='cantidad_'+nombre_form.substring(11,nombre_form.length); 
+	var stock=document.getElementById(nombre_stock);
+	var cantidad=document.getElementById(nombre_cantidad);
+	if (parseInt(stock.value)>=parseInt(cantidad.value)) {
+		return true;
+	} else {
+		window.alert("Ha superado el máximo de stock para este producto");
+		return false;	
+	}	
+}
+</script>
+
+			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+				integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+				crossorigin="anonymous"></script>
+	<script
+				src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+				integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+				crossorigin="anonymous"></script>
+	<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+				integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+				crossorigin="anonymous"></script>
+
+		</body>
+</html>

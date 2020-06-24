@@ -14,7 +14,7 @@
 </head>
 <body>
 
-	<div th:if="*{session.tipo_usuario_logeado==6}">
+	<div >
 
 
 		<form action="#" th:action="@{/productos/do-edit-producto}"
@@ -63,7 +63,7 @@
 				<tr>
 					<td>Imagen</td>
 					<td><input type="text" th:field="*{imagen}"
-						id="imagen" placeholder="Imagen"></td>
+						id="imagen" placeholder="Imagen" readonly></td>
 
 				</tr>
 				
@@ -84,6 +84,9 @@
 
 			</table>
 		</form>
+		
+		<a th:href="@{/productos/c-edit-producto-imagen/{id}(id=${producto.id})}" >Cambiar imagen del producto</a>
+		
 <br>
 <a href="/productos/c-list-producto">Gestionar Productos</a>
 	</div>

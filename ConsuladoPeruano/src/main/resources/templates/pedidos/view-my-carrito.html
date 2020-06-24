@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+	crossorigin="anonymous">
+<title>Login</title>
+
+</head>
+<body>
+
+Resumen pedido
+<br>
+Cantidad de productos <span th:text="${session.cantidad_total}"></span>
+<br>
+Cuenta total S/ <span th:text="${session.cuenta_total}"></span>
+<br>
+<a href="/pedidos/c-add-my-pedido/1">Seguir comprando</a>
+
+
+
+	<br>
+
+		Carrito de Compras actual
+
+		<table>
+			<tr>
+
+				<td>Id Detalle Pedido</td>
+				<td>Id Producto</td>
+				<td>Nombre Prod</td>
+				<td>Precio</td>
+				<td>Cantidad</td>
+				<td>SubTotal</td>
+				<td>Eliminar</td>
+				
+			</tr>
+			<tr th:each="detallepedido : ${session.detallespedidos}">
+
+				<td><span th:text="${detallepedido.id}"></span></td>
+				<td><span th:text="${detallepedido.producto.id}"></span></td>
+				<td><span th:text="${detallepedido.producto.nombreproducto}"></span>
+				</td>
+				<td th:text="${detallepedido.producto.precio}"></td>
+
+				<td th:text="${detallepedido.cantidad}"></td>
+				<td th:text="${detallepedido.subtotal}"></td>
+			<td><a th:href="@{/pedidos/do-delete-my-detallepedido/{id}(id=${detallepedido.producto.id})}" >Eliminar</a></td>
+			<tr>
+
+		</table>
+		<a href="/pedidos/c-checkout-my-pedido">Ir al checkout</a>
+<br>
+
+<a href="/pedidos/c-list-my-pedido">Cancelar Pedido</a>
+
+
+			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+				integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+				crossorigin="anonymous"></script>
+	<script
+				src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+				integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+				crossorigin="anonymous"></script>
+	<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+				integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+				crossorigin="anonymous"></script>
+
+		</body>
+</html>

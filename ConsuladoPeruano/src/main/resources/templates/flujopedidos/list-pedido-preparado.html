@@ -14,56 +14,56 @@
 </head>
 <body>
 
-	<div >
+	<br>
+	<!-- 
+Búsqueda de Pedidos
 
-		<a href="/clientes/c-add-cliente">Nuevo Cliente</a>
-<br>
-Búsqueda de clientes
-
-		<form action="#" th:action="@{/clientes/do-buscar-cliente-list}"
+		<form action="#" th:action="@{/pedidos/do-buscar-pedido-list}"
 			th:object="${cliente}" method="post">
 			
 			<input type="text" th:field="*{apellidos}" id="apellidos" placeholder="Apellidos a buscar...">
 			<input type="submit" value="Buscar">
 		</form>
 
+ -->
 
+	Pedidos registrados a ser preparados
 
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Hora Pedido</th>
+				<th>Detalle de Pedido</th>
+				<th>Observacion</th>
+				<th>Direccion</th>
 
+				<th>Delivery</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="pedido : ${listPedido}">
+				<td th:text="${pedido.id}"></td>
+				<td th:text="${pedido.horapedido}"></td>
 
-		<table>
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Nombres</th>
-					<th>Apellidos</th>
-					<th>Tipo Documento</th>
-					<th>Numero Documento</th>
-					<th>Email</th>
-					<th>Telefono</th>
-					<th>Editar</th>
-					<th>Eliminar</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="cliente : ${listCliente}">
-					<td th:text="${cliente.id}"></td>
-					<td th:text="${cliente.nombres}"></td>
-					<td th:text="${cliente.apellidos}"></td>
-					<td th:text="${listaTipodocumento[cliente.tipodocumento-1]}"></td>
-					<td th:text="${cliente.numerodocumento}"></td>
-					<td th:text="${cliente.email}"></td>
-					<td th:text="${cliente.telefono}"></td>
-			
-					<td><a th:href="@{/clientes/c-edit-cliente/{id}(id=${cliente.id})}">Editar</a></td>
-					<td><a
-						th:href="@{/clientes/do-delete-cliente/{id}(id=${cliente.id})}">Eliminar</a></td>
-				</tr>
-			</tbody>
+				<td>
+				
+					    <ul>
+					         <li th:each="detallepedido : ${pedido.detallespedidos}" 
+					         th:text="${detallepedido.cantidad}+'x '+${detallepedido.producto.nombreproducto}"></li>
+					    </ul>
+				
+				</td>
+				<td th:text="${pedido.observacion}"></td>
+				<td th:text="${pedido.direccion.nombredireccion}+' '+${pedido.direccion.interior}+', '+${pedido.direccion.distrito.nombredistrito}"></td>
+				
+				<td th:text="${pedido.empleado.nombres}+' '+${pedido.empleado.apellidos}"></td>
 
-		</table>
-		<a href="/home">Home</a>
-	</div>
+			</tr>
+		</tbody>
+
+	</table>
+	<a href="/home">Home</a>
 
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

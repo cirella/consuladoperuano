@@ -17,76 +17,10 @@
 	<div >
 
 
-		<form action="#" th:action="@{/clientes/do-edit-cliente}"
-			th:object="${cliente}" method="post">
 
-			<table>
-				<tr>
-					<td>Id</td>
-					<td><input type="text" th:field="*{id}" id="id"
-						placeholder="Id"></td>
+		</br> Nueva Dirección
 
-				</tr>
-				<tr>
-					<td>Nombres</td>
-					<td><input type="text" th:field="*{nombres}" id="nombres"
-						placeholder="Nombres"></td>
-
-				</tr>
-
-				<tr>
-					<td>Apellidos</td>
-
-					<td><input type="text" th:field="*{apellidos}" id="apellidos"
-						placeholder="Apellidos"></td>
-
-				</tr>
-
-				<tr>
-					<td>Tipo de Documento</td>
-
-					<td><select th:field="*{tipodocumento}">
-							<option th:each="tipodocumento : ${listaTipodocumento}"
-								th:value="${tipodocumento.id}" th:utext="${tipodocumento.tipo}" />
-					</select></td>
-
-				</tr>
-				<tr>
-					<td>Número de Documento</td>
-
-					<td><input type="text" th:field="*{numerodocumento}"
-						id="numerodocumento" placeholder="Número de Documento"></td>
-
-				</tr>
-				<tr>
-					<td>Teléfono Celular</td>
-					<td><input type="text" th:field="*{telefono}" id="telefono"
-						placeholder="Teléfono Celular"></td>
-
-				</tr>
-
-				<tr>
-					<td>Email</td>
-
-					<td><input type="text" th:field="*{email}" id="email"
-						placeholder="Email"></td>
-
-				</tr>
-
-
-
-				<tr>
-					<td></td>
-					<td><input type="submit" value="Actualizar"></td>
-				</tr>
-
-			</table>
-		</form>
-
-
-		</br> Direcciones registradas
-
-		<form action="#" th:action="@{/clientes/do-add-direccion-cliente}"
+		<form action="#" th:action="@{/usuarios/do-edit-my-direccion}"
 			th:object="${direccion}" method="post">
 
 			<table>
@@ -150,7 +84,7 @@
 					
 					<td th:text="${direccion_2.referencia}"></td>
 					<td th:text="${direccion_2.distrito.local==null}?'No':'Si'"></td>
-					<td><a th:href="@{/clientes/do-delete-direccion-cliente/{id}(id=${direccion_2.id}) }">Eliminar</a></td>
+					<td><a th:href="@{/usuarios/do-delete-my-direccion/{id}(id=${direccion_2.id}) }">Eliminar</a></td>
 			
 				</tr>
 			</tbody>
@@ -161,7 +95,10 @@
 
 
 
-		<br> <a href="/clientes/c-list-cliente">Gestionar Clientes</a>
+		<br> 
+		<a th:if="${session.cantidad_total!=null}" href="/pedidos/c-select-direccion/1">Regresar a Nuevo Pedido</a>
+		<br> 		
+		<a th:if="${session.cantidad_total==null}" href="/home">Home</a>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

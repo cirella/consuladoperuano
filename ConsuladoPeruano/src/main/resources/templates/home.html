@@ -11,110 +11,100 @@
 	crossorigin="anonymous">
 <title>Login</title>
 
-  <!-- Favicon -->
-  <link rel="icon" href="../assets/img/brand/favicon.png" type="image/png">
-  <!-- Fonts -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
-  <!-- Icons -->
-  <link rel="stylesheet" href="../assets/vendor/nucleo/css/nucleo.css" type="text/css">
-  <link rel="stylesheet" href="../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
-  <!-- Page plugins -->
-  <!-- Argon CSS -->
-  <link rel="stylesheet" href="../assets/css/argon.css?v=1.2.0" type="text/css">
 </head>
-
-<div th:if="*{session.tipo_usuario_logeado==99}">
 <body>
-  <!-- Sidenav -->
-  <nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
-    <div class="scrollbar-inner">
-      <!-- Brand -->
-      <div class="sidenav-header  align-items-center">
-        <a class="navbar-brand" href="javascript:void(0)">
-          <img src="../assets/img/brand/logo_consulado_chico_black.png" class="navbar-brand-img-consulado" alt="Consulado Peruano">
-        </a>
-      </div>
-      <div class="navbar-inner">
-        <!-- Collapse -->
-        <div class="collapse navbar-collapse" id="sidenav-collapse-main">
-          <!-- Nav items -->
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" href="/showHome">
-                <i class="ni ni-tv-2 text-primary"></i>
-                <span class="nav-link-text">Inicio</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/empleados/c-list-empleado">
-                <i class="ni ni-planet text-orange"></i>
-                <span class="nav-link-text">Gestionar Empleados</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/locales/c-list-local">
-                <i class="ni ni-pin-3 text-primary"></i>
-                <span class="nav-link-text">Gestionar Locales</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/distritos/c-list-distrito">
-                <i class="ni ni-key-25 text-info"></i>
-                <span class="nav-link-text">Gestionar Distritos</span>
-              </a>
-            </li>
-          </ul>
-          <!-- Divider -->
-          <hr class="my-3">
-          <!-- Heading -->
-         
-          <!-- Navigation -->
-          
-        </div>
-      </div>
-    </div>
-  </nav>
- 
-  <!-- Main content -->
-  <div class="main-content" id="panel">
-    <!-- Topnav -->
-     <div class="header pb-6 bg-primary2">
-      <div class="container-fluid">
-        <div class="header-body">
-          <div class="row align-items-center py-4">
-            <div class="col-lg-6 col-7">
-              <h1 class="h2 text-white d-inline-block mb-0">Bienvenido</h1>
-              <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
-                <ol class="breadcrumb-consulado breadcrumb-links breadcrumb-dark">
-                  <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                  <!--<li class="breadcrumb-item"><a href="#">Inicio</a></li>-->
-                  <li class="breadcrumb-item active" aria-current="page">Inicio</li>
-                </ol>
-              </nav>
-            </div>
-            <div class="col-lg-6 col-5 text-right">           
-              <a href="/" class="btn btn-sm btn-neutral">Cerrar Sesión</a>
-            </div>
-          </div>
-          <!-- Card stats -->
-          
-        </div>
-      </div>
-    </div>
-   
-  </div>
-  <!-- Argon Scripts -->
-  <!-- Core -->
-  <script src="../assets/vendor/jquery/dist/jquery.min.js"></script>
-  <script src="../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/vendor/js-cookie/js.cookie.js"></script>
-  <script src="../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-  <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
-  <!-- Optional JS -->
-  <script src="../assets/vendor/chart.js/dist/Chart.min.js"></script>
-  <script src="../assets/vendor/chart.js/dist/Chart.extension.js"></script>
-  <!-- Argon JS -->
-  <script src="../assets/js/argon.js?v=1.2.0"></script>
-</body>
+
+Hola <span th:text="${session.nombre_usuario_logeado}"></span>
+<br>
+Haz logeado como: <span th:text="${session.nombre_tipo_usuario_logeado}"></span>
+<br>
+<!-- MENU SUPER_ADMIN -->
+<div th:if="${session.tipo_usuario_logeado == 6}">
+<a href="/distritos/c-list-distrito">Gestionar Distritos</a>
+<br>
+<a href="/locales/c-list-local">Gestionar Locales</a>
+<br>
+<a href="/empleados/c-list-empleado">Gestionar Empleados</a>
+<br>
+<a href="/categorias/c-list-categoria">Gestionar Categorias</a>
+<br>
+<a href="/productos/c-list-producto">Gestionar Productos</a>
+<br>
+<a href="/clientes/c-list-cliente">Gestionar Clientes</a>
+<br>
+<a href="/usuarios/c-edit-my-password">Cambiar mi Password</a>
 </div>
+
+<!-- MENU ADMINISTRADOR TIENDA -->
+<div th:if="${session.tipo_usuario_logeado == 1}">
+<a th:href="@{/locales/c-edit-local-stock/{id}(id=session.id_local_empleado)}">Gestionar Locales</a>
+<br>
+<a href="/empleados/c-list-empleado">Gestionar Empleados</a>
+<br>
+<a href="/clientes/c-list-cliente">Gestionar Clientes</a>
+<br>
+<a href="/flujopedidos/c-list-pedido-registrado">Pedidos por Preparar</a>
+<br>
+<a href="/flujopedidos/c-list-pedido-preparado">Pedidos Asignados</a>
+<br>
+<a href="/usuarios/c-edit-my-password">Cambiar mi Password</a>
+</div>
+
+
+
+<!-- MENU COCINA -->
+<div th:if="${session.tipo_usuario_logeado == 2}">
+<a href="/flujopedidos/c-list-pedido-registrado">Pedidos por Preparar</a>
+<br>
+<a href="/usuarios/c-edit-my-password">Cambiar mi Password</a>
+</div>
+
+<!-- MENU ATENCION PUBLICO -->
+<div th:if="${session.tipo_usuario_logeado == 3}">
+<a href="/clientes/c-list-cliente">Gestionar Clientes</a>
+<br>
+<a href="/flujopedidos/c-list-pedido-preparado">Pedidos Asignados</a>
+<br>
+<a href="/usuarios/c-edit-my-password">Cambiar mi Password</a>
+</div>
+
+<!-- MENU DELIVERY -->
+<div th:if="${session.tipo_usuario_logeado == 4}">
+<a href="/flujopedidos/c-list-my-pedido-asignado">Pedidos por Entregar</a>
+<br>
+<a href="/usuarios/c-edit-my-password">Cambiar mi Password</a>
+</div>
+
+
+<!-- MENU CLIENTE -->
+<div th:if="${session.tipo_usuario_logeado == 5}">
+<br>
+<a href="/pedidos/c-list-my-pedido">Gestionar Mis Pedidos</a>
+<br>
+<a href="/usuarios/c-edit-my-data">Gestionar Mis Datos</a>
+<br>
+<a href="/usuarios/c-edit-my-direccion">Gestionar Mis Direcciones</a>
+<br>
+<a href="/usuarios/c-edit-my-password">Cambiar mi Password</a>
+</div>
+
+
+	<form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+ 
+
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+		integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+		crossorigin="anonymous"></script>
+</body>
 </html>

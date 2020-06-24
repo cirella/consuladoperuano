@@ -14,13 +14,10 @@
 </head>
 <body>
 
-	<div >
-
-		<a href="/clientes/c-add-cliente">Nuevo Cliente</a>
 <br>
-Búsqueda de clientes
+Búsqueda de Pedidos
 
-		<form action="#" th:action="@{/clientes/do-buscar-cliente-list}"
+		<form action="#" th:action="@{/pedidos/do-buscar-pedido-list}"
 			th:object="${cliente}" method="post">
 			
 			<input type="text" th:field="*{apellidos}" id="apellidos" placeholder="Apellidos a buscar...">
@@ -35,35 +32,46 @@ Búsqueda de clientes
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Nombres</th>
-					<th>Apellidos</th>
-					<th>Tipo Documento</th>
-					<th>Numero Documento</th>
-					<th>Email</th>
+					<th>Nombre Completo</th>
 					<th>Telefono</th>
+					<th>Precio Venta</th>
+					<th>Hora Pedido</th>
+					<th>Hora Estado</th>
+					<th>Estado</th>
+					
 					<th>Editar</th>
 					<th>Eliminar</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="cliente : ${listCliente}">
-					<td th:text="${cliente.id}"></td>
-					<td th:text="${cliente.nombres}"></td>
-					<td th:text="${cliente.apellidos}"></td>
-					<td th:text="${listaTipodocumento[cliente.tipodocumento-1]}"></td>
-					<td th:text="${cliente.numerodocumento}"></td>
-					<td th:text="${cliente.email}"></td>
-					<td th:text="${cliente.telefono}"></td>
-			
-					<td><a th:href="@{/clientes/c-edit-cliente/{id}(id=${cliente.id})}">Editar</a></td>
+				<tr th:each="pedido : ${listPedido}">
+					<td th:text="${pedido.id}"></td>
+					<td th:text="${pedido.cliente.nombres},${pedido.cliente.apellidos}"></td>
+					<td th:text="${pedido.cliente.telefono}"></td>
+					<td th:text="${pedido.precioventa}"></td>
+					<td th:text="${pedido.horapedido}"></td>
+					<!-- Para cancelado -->
+					<td th:if="${(pedido.cancelado==1)}" th:text="${pedido.horacancelado}"></td>
+					<td th:if="${(pedido.cancelado==1)}" th:text="Cancelado"></td>
+					<!-- Para preparado -->
+					<td th:if="${(pedido.preparado==1)}" th:text="${pedido.horacancelado}"></td>
+					<td th:if="${(pedido.preparado==1)}" th:text="Preparado"></td>
+					<!-- Para entregado -->
+					<td th:if="${(pedido.entregado==1)}" th:text="${pedido.horaentregado}"></td>
+					<td th:if="${(pedido.entregado==1)}" th:text="Entregado"></td>
+					<!-- Para cancelado -->
+					<td th:if="${(pedido.horacancelado!=null)}" th:text="${pedido.horacancelado}"></td>
+					<td th:if="${(pedido.horacancelado!=null)}" th:text="Cancelado"></td>
+					
+					
+					<td><a th:href="@{/pedidos/c-edit-pedido/{id}(id=${pedido.id})}">Editar</a></td>
 					<td><a
-						th:href="@{/clientes/do-delete-cliente/{id}(id=${cliente.id})}">Eliminar</a></td>
+						th:href="@{/pedidos/do-delete-pedido/{id}(id=${pedido.id})}">Eliminar</a></td>
 				</tr>
 			</tbody>
 
 		</table>
 		<a href="/home">Home</a>
-	</div>
 
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

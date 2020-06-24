@@ -15,90 +15,14 @@
 <body>
 
 	<div >
-
-
-		<form action="#" th:action="@{/clientes/do-edit-cliente}"
-			th:object="${cliente}" method="post">
-
-			<table>
-				<tr>
-					<td>Id</td>
-					<td><input type="text" th:field="*{id}" id="id"
-						placeholder="Id"></td>
-
-				</tr>
-				<tr>
-					<td>Nombres</td>
-					<td><input type="text" th:field="*{nombres}" id="nombres"
-						placeholder="Nombres"></td>
-
-				</tr>
-
-				<tr>
-					<td>Apellidos</td>
-
-					<td><input type="text" th:field="*{apellidos}" id="apellidos"
-						placeholder="Apellidos"></td>
-
-				</tr>
-
-				<tr>
-					<td>Tipo de Documento</td>
-
-					<td><select th:field="*{tipodocumento}">
-							<option th:each="tipodocumento : ${listaTipodocumento}"
-								th:value="${tipodocumento.id}" th:utext="${tipodocumento.tipo}" />
-					</select></td>
-
-				</tr>
-				<tr>
-					<td>Número de Documento</td>
-
-					<td><input type="text" th:field="*{numerodocumento}"
-						id="numerodocumento" placeholder="Número de Documento"></td>
-
-				</tr>
-				<tr>
-					<td>Teléfono Celular</td>
-					<td><input type="text" th:field="*{telefono}" id="telefono"
-						placeholder="Teléfono Celular"></td>
-
-				</tr>
-
-				<tr>
-					<td>Email</td>
-
-					<td><input type="text" th:field="*{email}" id="email"
-						placeholder="Email"></td>
-
-				</tr>
-
-
-
-				<tr>
-					<td></td>
-					<td><input type="submit" value="Actualizar"></td>
-				</tr>
-
-			</table>
-		</form>
-
-
+<span th:text="${cliente.nombres}"></span>
 		</br> Direcciones registradas
 
-		<form action="#" th:action="@{/clientes/do-add-direccion-cliente}"
+		<form action="#" th:action="@{/registro/do-add-direccion-cliente}"
 			th:object="${direccion}" method="post">
 
 			<table>
-				<tr>
-					<td>Id</td>
-					<td>
-					<input type="text" th:field="*{cliente}"
-						id="cliente" placeholder="Cliente">
-					
-					</td>
-					
-				</tr>
+
 				<tr>
 					<td>Nombre de Calle/Avenida/Jiron/Pasaje</td>
 					<td><input type="text" th:field="*{nombredireccion}"
@@ -150,19 +74,22 @@
 					
 					<td th:text="${direccion_2.referencia}"></td>
 					<td th:text="${direccion_2.distrito.local==null}?'No':'Si'"></td>
-					<td><a th:href="@{/clientes/do-delete-direccion-cliente/{id}(id=${direccion_2.id}) }">Eliminar</a></td>
+					<td><a th:href="@{/registro/do-delete-direccion-cliente/{id}(id=${direccion_2.id}) }">Eliminar</a></td>
 			
 				</tr>
 			</tbody>
 
 		</table>
 
+<form action="#" th:action="@{/registro/do-fin-registro}"
+			 method="post">
+			 			<input type="submit" value="Finalizar Registro" 			>
+			 
+			</form>
 
 
 
-
-		<br> <a href="/clientes/c-list-cliente">Gestionar Clientes</a>
-	</div>
+</div>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

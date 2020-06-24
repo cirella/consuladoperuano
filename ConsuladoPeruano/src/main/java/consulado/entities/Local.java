@@ -91,7 +91,7 @@ public class Local implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Local [id=" + id + ", nombrelocal=" + nombrelocal + ", localesproductos=" + localesproductos + "]";
+		return "Local [id=" + id + ", nombrelocal=" + nombrelocal + ", size localesproductos=" + ((localesproductos != null)?localesproductos.size():"null") + "]";
 	}
 
 	public Local(long id, String nombrelocal, List<LocalProducto> localesproductos) {

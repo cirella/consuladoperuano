@@ -1,0 +1,53 @@
+drop database consuladodb;
+create database consuladodb
+
+USE consuladodb;
+INSERT INTO `usuario` VALUES (1,'test','$2a$10$U1F9UtCWDLHLAMsO1US8s.bAH/a85zXkwCNvM6pxqy3VEznYt.BgS',6);
+INSERT INTO `rol` VALUES (1,'ROLE_SUPER_ADMIN',1);
+INSERT INTO `local` VALUES (1,'Pardo'),(2,'Benavides'),(3,'Centro Cívico'),(4,'MegaPlaza');
+INSERT INTO `distrito` VALUES 
+(1,'Lima',3),
+(2,'Ancón',NULL),
+(3,'Ate',NULL),
+(4,'Barranco',1),
+(5,'Breña',3),
+(6,'Carabayllo',NULL),
+(7,'Chaclacayo',NULL),
+(8,'Chorrillos',NULL),
+(9,'Cieneguilla',NULL),
+(10,'Comas',4),
+(11,'El Agustino',NULL),
+(12,'Independencia',4),
+(13,'Jesús María',NULL),
+(14,'La Molina',NULL),
+(15,'La Victoria',NULL),
+(16,'Lince',NULL),
+(17,'Los Olivos',4),
+(18,'Lurigancho',NULL),
+(19,'Lurin',NULL),
+(20,'Magdalena del Mar',NULL),
+(21,'Pueblo Libre',NULL),
+(22,'Miraflores',1),
+(23,'Pachacamac',NULL),
+(24,'Pucusana',NULL),
+(25,'Puente Piedra',NULL),
+(26,'Punta Hermosa',NULL),
+(27,'Punta Negra',NULL),
+(28,'Rímac',3),
+(29,'San Bartolo',NULL),
+(30,'San Borja',2),
+(31,'San Isidro',1),
+(32,'San Juan de Lurigancho',NULL),
+(33,'San Juan de Miraflores',NULL),
+(34,'San Luis',NULL),
+(35,'San Martín de Porres',4),
+(36,'San Miguel',NULL),
+(37,'Santa Anita',NULL),
+(38,'Santa María del Mar',NULL),
+(39,'Santa Rosa',NULL),
+(40,'Santiago de Surco',2),
+(41,'Surquillo',NULL),
+(42,'Villa El Salvador',NULL),
+(43,'Villa María del Triunfo',NULL);
+INSERT INTO `categoria` VALUES (1,'Fondos'),(2,'Ensaladas'),(3,'Hamburguesas'),(4,'Sopas'),(5,'Bebidas');
+

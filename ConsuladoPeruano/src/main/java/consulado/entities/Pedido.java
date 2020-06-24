@@ -2,12 +2,16 @@ package consulado.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,7 +41,7 @@ public class Pedido implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date horapreparado;
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date horaentrega;
+	private Date horaentregado;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date horacancelado;
 
@@ -45,22 +49,37 @@ public class Pedido implements Serializable {
 	private double igv;
 	private double valorventa;
 	private int idempleadodelivery;
+	@Column(columnDefinition = "TEXT")
 	private String observacion;
 
 	
 	private int entregado;
 	private int cancelado;
 	private int preparado;
+	
+	@OneToMany(mappedBy="pedido")
+	private List<DetallePedido> detallespedidos;
+	
 
 	@PrePersist
 	public void TrimAllFields() {
 		this.observacion=this.observacion.trim();
+		
+		this.precioventa = Math.round(this.precioventa * 100);
+		this.precioventa = this.precioventa/100;
+		
+		this.valorventa=this.precioventa/1.19;
+		
+		this.valorventa = Math.round(this.valorventa * 100);
+		this.valorventa = this.valorventa/100;;
+		
+		this.igv=this.precioventa-this.valorventa;
 	}
 	
 	
 	public Pedido() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
 
@@ -134,13 +153,13 @@ public class Pedido implements Serializable {
 	}
 
 
-	public Date getHoraentrega() {
-		return horaentrega;
+	public Date getHoraentregado() {
+		return horaentregado;
 	}
 
 
-	public void setHoraentrega(Date horaentrega) {
-		this.horaentrega = horaentrega;
+	public void setHoraentregado(Date horaentregado) {
+		this.horaentregado = horaentregado;
 	}
 
 
@@ -234,6 +253,16 @@ public class Pedido implements Serializable {
 	}
 
 
+	public List<DetallePedido> getDetallespedidos() {
+		return detallespedidos;
+	}
+
+
+	public void setDetallespedidos(List<DetallePedido> detallespedidos) {
+		this.detallespedidos = detallespedidos;
+	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -245,7 +274,7 @@ public class Pedido implements Serializable {
 		result = prime * result + ((empleado == null) ? 0 : empleado.hashCode());
 		result = prime * result + entregado;
 		result = prime * result + ((horacancelado == null) ? 0 : horacancelado.hashCode());
-		result = prime * result + ((horaentrega == null) ? 0 : horaentrega.hashCode());
+		result = prime * result + ((horaentregado == null) ? 0 : horaentregado.hashCode());
 		result = prime * result + ((horapedido == null) ? 0 : horapedido.hashCode());
 		result = prime * result + ((horapreparado == null) ? 0 : horapreparado.hashCode());
 		result = prime * result + idempleadodelivery;
@@ -298,10 +327,10 @@ public class Pedido implements Serializable {
 				return false;
 		} else if (!horacancelado.equals(other.horacancelado))
 			return false;
-		if (horaentrega == null) {
-			if (other.horaentrega != null)
+		if (horaentregado == null) {
+			if (other.horaentregado != null)
 				return false;
-		} else if (!horaentrega.equals(other.horaentrega))
+		} else if (!horaentregado.equals(other.horaentregado))
 			return false;
 		if (horapedido == null) {
 			if (other.horapedido != null)
@@ -341,15 +370,15 @@ public class Pedido implements Serializable {
 	public String toString() {
 		return "Pedido [Id=" + Id + ", cliente=" + cliente + ", direccion=" + direccion + ", local=" + local
 				+ ", empleado=" + empleado + ", horapedido=" + horapedido + ", horapreparado=" + horapreparado
-				+ ", horaentrega=" + horaentrega + ", horacancelado=" + horacancelado + ", precioventa=" + precioventa
+				+ ", horaentregado=" + horaentregado + ", horacancelado=" + horacancelado + ", precioventa=" + precioventa
 				+ ", igv=" + igv + ", valorventa=" + valorventa + ", idempleadodelivery=" + idempleadodelivery
 				+ ", observacion=" + observacion + ", entregado=" + entregado + ", cancelado=" + cancelado
-				+ ", preparado=" + preparado + "]";
+				+ ", preparado=" + preparado + ", detallespedidos=" + detallespedidos + "]";
 	}
 
 
 	public Pedido(long id, Cliente cliente, Direccion direccion, Local local, Empleado empleado, Date horapedido,
-			Date horapreparado, Date horaentrega, Date horacancelado, double precioventa, double igv, double valorventa,
+			Date horapreparado, Date horaentregado, Date horacancelado, double precioventa, double igv, double valorventa,
 			int idempleadodelivery, String observacion, int entregado, int cancelado, int preparado) {
 		super();
 		Id = id;
@@ -359,7 +388,7 @@ public class Pedido implements Serializable {
 		this.empleado = empleado;
 		this.horapedido = horapedido;
 		this.horapreparado = horapreparado;
-		this.horaentrega = horaentrega;
+		this.horaentregado = horaentregado;
 		this.horacancelado = horacancelado;
 		this.precioventa = precioventa;
 		this.igv = igv;

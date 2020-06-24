@@ -13,6 +13,7 @@ import consulado.entities.Producto;
 import consulado.repositories.ProductoRepository;
 import consulado.services.LocalProductoService;
 import consulado.services.ProductoService;
+import consulado.utils.Constantes;
 
 @Service
 public class ProductoServiceImpl  implements ProductoService, Serializable{
@@ -30,7 +31,9 @@ public class ProductoServiceImpl  implements ProductoService, Serializable{
 	@Transactional
 	public Producto save(Producto producto) {
 		Producto prod=productoRepository.save(producto);
-		if (producto.getActivado()==0) {
+		Constantes constantes=new Constantes();
+		
+		if (producto.getActivado()==(constantes.findByTipo("TiposActivo", "Inactivo"))) {
 			localproductoService.deleteByIdProducto(producto.getId());
 		}
 		return prod;
@@ -67,6 +70,16 @@ public class ProductoServiceImpl  implements ProductoService, Serializable{
 	@Override
 	public List<Producto> listAll() {
 		return (List<Producto>)productoRepository.findAll();
+	}
+
+	@Override
+	public List<Producto> findByActivado(int activado) {
+		return (List<Producto>)productoRepository.findByActivado(activado);
+	}
+
+	@Override
+	public List<Producto> findByCategoriaIdActivado(Long idCategoria, int activado) {
+		return (List<Producto>)productoRepository.findByCategoriaIdActivado(idCategoria, activado);
 	}
 
 }

@@ -105,6 +105,9 @@ public class LocalProductoServiceImpl implements LocalProductoService, Serializa
 		}
 	}
 
+	
+	
+	
 	@Override
 	public int existeProducto(Producto producto, List<LocalProducto> lista) {
 		int i = 0;
@@ -134,8 +137,17 @@ public class LocalProductoServiceImpl implements LocalProductoService, Serializa
 		for(LocalProducto localproducto: local.getLocalesproductos()) {
 			localproducto.setProducto(productoService.findById(localproducto.getProducto().getId()));
 			localproducto.setLocal(local_a_guardar);
-			//System.out.print(local_a_guardar.toString()+"\n\r");
 			save(localproducto);
+		}
+	}
+
+	@Override
+	public LocalProducto findByIdLocalIdProducto(Long local_id, Long producto_id) {
+		List<LocalProducto> localesproductos = localproductoRepository.findByIdLocalIdProducto(local_id,producto_id);
+		if (localesproductos.isEmpty()) {
+			return null;
+		} else {
+			return localesproductos.get(0);
 		}
 	}
 

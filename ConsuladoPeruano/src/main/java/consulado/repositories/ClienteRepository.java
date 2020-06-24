@@ -17,4 +17,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long>{
 	List<Cliente> findByApellidos(String apellidos);
 	@Query("select c from Cliente c where c.tipodocumento = ?1 and c.numerodocumento =?2")
 	List<Cliente> findByTipoDocumentoNumeroDocumento(int tipodocumento, String numerodocumento);
+	@Query("select c from Cliente c where c.usuario.id = ?1")
+	List<Cliente> findByIdUsuario(Long idusuario);
 }

@@ -12,9 +12,15 @@ import consulado.entities.Empleado;
 public interface EmpleadoRepository extends JpaRepository<Empleado, Long>  {
 	@Query("select e from Empleado e where e.id=?1")
 	List<Empleado> findByIdEmpleado(Long id);
-	
+	@Query("select e from Empleado e where e.usuario.id=?1")
+	List<Empleado> findByIdUsuario(Long id);	
 	@Query("select e from Empleado e where e.apellidos like ?1%")
 	List<Empleado> findByApellidos(String apellidos);
 	@Query("select e from Empleado e where e.tipodocumento = ?1 and e.numerodocumento =?2")
 	List<Empleado> findByTipoDocumentoNumeroDocumento(String tipodocumento, String numerodocumento);
+	@Query("select e from Empleado e where e.local.id =?1")
+	List<Empleado> listByIdLocal(Long id);
+	@Query("select e from Empleado e where e.local.id =?1 and e.tipoempleado=?2")
+	List<Empleado> listByIdLocalIdTipo(Long id, int idTipo);
+	
 }

@@ -13,6 +13,7 @@ public interface DistritoService {
 	   public List<Distrito> listAll();
 	   public List<Distrito> findByLocalId(Long id);
 	   public List<Distrito> findByLocalIdNull();
+	   public List<Distrito> findByLocalIsNotNull();
 	   
 	   public void asociaDistritoConLocal(Long iddistrito, Long idlocal);
 

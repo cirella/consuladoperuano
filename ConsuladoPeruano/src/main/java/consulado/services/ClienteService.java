@@ -13,6 +13,7 @@ public interface ClienteService {
 	   public Cliente findById(Long id);
 	   public Cliente findByTipoNumeroDocumento(int tipo,String numerodocumento);
 	   public List<Cliente> findByApellidos(String apellidos);
+	   public Cliente findByIdUsuario(Long idusuario);
 	   
 	   
 

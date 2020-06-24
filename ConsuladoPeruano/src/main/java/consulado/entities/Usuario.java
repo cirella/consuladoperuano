@@ -1,12 +1,16 @@
 package consulado.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 
 @Entity
@@ -19,7 +23,9 @@ public class Usuario implements Serializable {
 	private String password;
 	private String nombreusuario;
 	private int tipo;
-
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "usuario_id")
+	private List<Rol> roles;
 	
 	@PrePersist
 	public void TrimAllFields() {
@@ -40,10 +46,12 @@ public class Usuario implements Serializable {
 		this.tipo = tipo;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nombreusuario=" + nombreusuario + ", password=" + password 
-				+ ", tipo=" + tipo + "]";
+		return "Usuario [id=" + id + ", password=" + password + ", nombreusuario=" + nombreusuario + ", tipo=" + tipo
+				+ ", roles=" + roles + "]";
 	}
 
 	@Override
@@ -114,6 +122,14 @@ public class Usuario implements Serializable {
 
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
+	}
+
+	public List<Rol> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Rol> roles) {
+		this.roles = roles;
 	}
 
 	

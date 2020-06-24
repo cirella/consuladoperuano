@@ -1,15 +1,17 @@
 package consulado.servicesimpl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import consulado.entities.Cliente;
-
+import consulado.entities.Rol;
 import consulado.entities.Usuario;
 import consulado.repositories.ClienteRepository;
 
@@ -17,6 +19,7 @@ import consulado.services.ClienteService;
 
 import consulado.services.UsuarioService;
 import consulado.utils.Constantes;
+
 
 @Service
 public class ClienteServiceImpl implements ClienteService, Serializable  {
@@ -29,7 +32,9 @@ public class ClienteServiceImpl implements ClienteService, Serializable  {
 	private ClienteRepository clienteRepository;	
 	@Autowired
 	private UsuarioService usuarioService;
-
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	@Override
 	@Transactional
 	public Cliente save(Cliente cliente) {
@@ -42,9 +47,20 @@ public class ClienteServiceImpl implements ClienteService, Serializable  {
 	public Cliente save(Cliente cliente, boolean crea_usuario) {
 		if (crea_usuario) {
 			Constantes constantes = new Constantes();
-			Usuario usuario=usuarioService.makeUsuario(cliente.getEmail(), constantes.findByTipoUsuario("Cliente"));
-			usuario.setPassword(cliente.getNumerodocumento());
+			
+			Usuario usuario=new Usuario();
+			usuario.setNombreusuario(cliente.getEmail());
+			usuario.setPassword(passwordEncoder.encode(cliente.getNumerodocumento()));
+			usuario.setTipo(constantes.findByTipo("TiposUsuario","Cliente"));
+			
+			
+			Rol nuevo_rol=new Rol();
+			nuevo_rol.setRol(constantes.findById("TiposRol",constantes.findByTipo("TiposUsuario","Cliente")));
+			List<Rol> nuevos_roles=new ArrayList<Rol>();
+			nuevos_roles.add(nuevo_rol);
+			usuario.setRoles(nuevos_roles);
 			usuario=usuarioService.save(usuario);
+			
 			cliente.setUsuario(usuario);
 			this.save(cliente);
 		} 
@@ -95,6 +111,16 @@ public class ClienteServiceImpl implements ClienteService, Serializable  {
 	public List<Cliente> listAll() {
 		// TODO Auto-generated method stub
 		return (List<Cliente>)clienteRepository.findAll();
+	}
+
+	@Override
+	public Cliente findByIdUsuario(Long idusuario) {
+		List<Cliente> clientes=clienteRepository.findByIdUsuario(idusuario);
+		if (clientes.isEmpty()) {
+			return null;
+		} else {
+			return clientes.get(0);
+		}
 	}
 
 }

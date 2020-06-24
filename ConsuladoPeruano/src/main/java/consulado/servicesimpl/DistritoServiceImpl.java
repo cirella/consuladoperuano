@@ -90,4 +90,9 @@ public class DistritoServiceImpl implements DistritoService, Serializable {
 		
 	}
 
+	@Override
+	public List<Distrito> findByLocalIsNotNull() {
+		return (List<Distrito>)distritoRepository.findByLocalIsNotNull();
+	}
+
 }

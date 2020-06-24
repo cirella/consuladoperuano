@@ -104,7 +104,7 @@ public class LocalProducto implements Serializable {
 
 	@Override
 	public String toString() {
-		return "LocalProducto [id=" + id + ", producto=" + producto + ", local=" + local + ", stock=" + stock + "]";
+		return "LocalProducto [id=" + id + ", producto=" + producto + ",id local=" + local.getId() + ", stock=" + stock + "]";
 	}
 
 	public LocalProducto(long id, Producto producto, Local local, int stock) {

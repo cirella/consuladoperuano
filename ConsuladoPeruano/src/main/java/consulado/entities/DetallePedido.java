@@ -23,6 +23,7 @@ public class DetallePedido implements Serializable {
 	@JoinColumn(nullable = true)
 	private Producto producto;
 	private int cantidad;
+	private double subtotal;
 	
 	public DetallePedido() {
 		super();
@@ -61,6 +62,14 @@ public class DetallePedido implements Serializable {
 		this.cantidad = cantidad;
 	}
 
+	public double getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(double subtotal) {
+		this.subtotal = subtotal;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -69,6 +78,9 @@ public class DetallePedido implements Serializable {
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((pedido == null) ? 0 : pedido.hashCode());
 		result = prime * result + ((producto == null) ? 0 : producto.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(subtotal);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -95,23 +107,27 @@ public class DetallePedido implements Serializable {
 				return false;
 		} else if (!producto.equals(other.producto))
 			return false;
+		if (Double.doubleToLongBits(subtotal) != Double.doubleToLongBits(other.subtotal))
+			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "DetallePedido [id=" + id + ", pedido=" + pedido + ", producto=" + producto + ", cantidad=" + cantidad
-				+ "]";
-	}
-
-	public DetallePedido(long id, Pedido pedido, Producto producto, int cantidad) {
+	public DetallePedido(long id, Pedido pedido, Producto producto, int cantidad, double subtotal) {
 		super();
 		this.id = id;
 		this.pedido = pedido;
 		this.producto = producto;
 		this.cantidad = cantidad;
+		this.subtotal = subtotal;
 	}
+
+	@Override
+	public String toString() {
+		return "DetallePedido [id=" + id + ", pedido_id=" + pedido.getId() + ", producto_id=" + producto.getId() + ", cantidad=" + cantidad
+				+ ", subtotal=" + subtotal + "]";
+	}
+
 	
-	
-	
+
+
 }

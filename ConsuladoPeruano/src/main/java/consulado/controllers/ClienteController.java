@@ -3,6 +3,7 @@ package consulado.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,29 +30,30 @@ public class ClienteController {
 	@Autowired
     private DireccionService direccionService;
 	
-	
+	@Secured({"ROLE_SUPER_ADMIN", "ROLE_ADMIN_TIENDA", "ROLE_ATENCION"})
 	@GetMapping("/c-list-cliente")
     public String showListaClientes(Model model){
 		
 		Constantes constantes=new Constantes();
-		model.addAttribute("listaTipodocumento",constantes.ArregloStringTiposDocumento());
+		model.addAttribute("listaTipodocumento",constantes.ArregloString("TiposDocumento"));
 		model.addAttribute("listCliente", clienteService.listAll());
 		model.addAttribute("cliente", new Cliente());
 		return "/clientes/list-cliente";
     }
 	
-	
+	@Secured({"ROLE_SUPER_ADMIN", "ROLE_ADMIN_TIENDA", "ROLE_ATENCION"})
 	@PostMapping("/do-buscar-cliente-list")
     public String showBuscarListaClientes(@Valid Cliente cliente,Model model){
 		
 		Constantes constantes=new Constantes();
-		model.addAttribute("listaTipodocumento",constantes.ArregloStringTiposDocumento());
+		model.addAttribute("listaTipodocumento",constantes.ArregloString("TiposDocumento"));
 		model.addAttribute("listCliente", clienteService.findByApellidos(cliente.getApellidos()));
 		model.addAttribute("cliente", cliente);
 		
         return "/clientes/list-cliente";
     }
 	
+	@Secured({"ROLE_SUPER_ADMIN", "ROLE_ADMIN_TIENDA", "ROLE_ATENCION"})
     @GetMapping("/c-add-cliente")
     public String showNuevoCliente(Model model){
 		model.addAttribute("cliente", new Cliente());
@@ -60,7 +62,7 @@ public class ClienteController {
 		return "/clientes/add-cliente";
     }
 	
-    
+	@Secured({"ROLE_SUPER_ADMIN", "ROLE_ADMIN_TIENDA", "ROLE_ATENCION"})
     @PostMapping("/do-add-cliente")
     public String doNuevoCliente(@Valid Cliente cliente, BindingResult result, Model model){
     	 if (result.hasErrors()) {
@@ -69,13 +71,13 @@ public class ClienteController {
 
     	 cliente=clienteService.save(cliente,true);
     	 Constantes constantes=new Constantes();
- 		 model.addAttribute("listaTipodocumento",constantes.ArregloStringTiposDocumento());
+ 		 model.addAttribute("listaTipodocumento",constantes.ArregloString("TiposDocumento"));
  	  	 model.addAttribute("listCliente", clienteService.listAll());
    		model.addAttribute("cliente", new Cliente());
          return "/clientes/list-cliente";
     }
     
-    
+	@Secured({"ROLE_SUPER_ADMIN", "ROLE_ADMIN_TIENDA", "ROLE_ATENCION"})
     @GetMapping("/c-edit-cliente/{id}")
     public String showEditarCliente(@PathVariable("id") long id, Model model) {
         
@@ -94,7 +96,7 @@ public class ClienteController {
 		 return "/clientes/edit-cliente";
     }
     
-    
+	@Secured({"ROLE_SUPER_ADMIN", "ROLE_ADMIN_TIENDA", "ROLE_ATENCION"})
     @PostMapping("/do-edit-cliente")
     public String doEditarCliente(@Valid Cliente cliente, BindingResult result, Model model){
     	if (result.hasErrors()) {
@@ -104,7 +106,7 @@ public class ClienteController {
     	clienteService.saveSinFK(cliente);
 
     	Constantes constantes=new Constantes();
- 		model.addAttribute("listaTipodocumento",constantes.ArregloStringTiposDocumento());
+ 		model.addAttribute("listaTipodocumento",constantes.ArregloString("TiposDocumento"));
  		model.addAttribute("listCliente", clienteService.listAll());
    		model.addAttribute("cliente", new Cliente());
 
@@ -113,22 +115,20 @@ public class ClienteController {
     
     
     
-    
-    
-    
+	@Secured({"ROLE_SUPER_ADMIN", "ROLE_ADMIN_TIENDA", "ROLE_ATENCION"})
     @GetMapping("/do-delete-cliente/{id}")
     public String doEliminarCliente(@PathVariable("id") long id, Model model) {
         Cliente cliente = clienteService.findById(id);
         clienteService.delete(cliente);
         
         Constantes constantes=new Constantes();
- 		model.addAttribute("listaTipodocumento",constantes.ArregloStringTiposDocumento());
+ 		model.addAttribute("listaTipodocumento",constantes.ArregloString("TiposDocumento"));
  		model.addAttribute("listCliente", clienteService.listAll());
    		model.addAttribute("cliente", new Cliente());
         return "/clientes/list-cliente";
     }
     
-    
+	@Secured({"ROLE_SUPER_ADMIN", "ROLE_ADMIN_TIENDA", "ROLE_ATENCION"})
     @PostMapping("/do-add-direccion-cliente")
     public String doNuevoDireccionCliente(@Valid Direccion direccion, BindingResult result, Model model){
     	if (result.hasErrors()) {
@@ -154,6 +154,7 @@ public class ClienteController {
 		return "/clientes/edit-cliente";
     }
 
+	@Secured({"ROLE_SUPER_ADMIN", "ROLE_ADMIN_TIENDA", "ROLE_ATENCION"})
     @GetMapping("/do-delete-direccion-cliente/{id}")
     public String doEliminarDireccionCliente(@PathVariable("id") long id, Model model) {
         Direccion direccion_a_borrar = direccionService.findById(id);
@@ -175,9 +176,6 @@ public class ClienteController {
 		 model.addAttribute("listDireccion", direccionService.findByClienteId(cliente.getId()));
 		 return "/clientes/edit-cliente";
     }
-    
-
-
 
 
 }

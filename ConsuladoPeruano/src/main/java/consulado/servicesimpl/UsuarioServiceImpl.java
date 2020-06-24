@@ -1,20 +1,29 @@
 package consulado.servicesimpl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import consulado.entities.Rol;
 import consulado.entities.Usuario;
+
 import consulado.repositories.UsuarioRepository;
 import consulado.services.UsuarioService;
-import consulado.utils.PasswordGenerator;
+
 
 @Service
-public class UsuarioServiceImpl implements UsuarioService, Serializable{
+public class UsuarioServiceImpl implements UsuarioService, Serializable {
 
 	/**
 	 * 
@@ -22,7 +31,10 @@ public class UsuarioServiceImpl implements UsuarioService, Serializable{
 	private static final long serialVersionUID = 1L;
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
+	
 	@Override
 	@Transactional
 	public Usuario save(Usuario usuario) {
@@ -63,21 +75,6 @@ public class UsuarioServiceImpl implements UsuarioService, Serializable{
 		}
 	}
 
-	@Override
-	public Usuario makeUsuario(String nombreusuario, int tipo) {
-		Usuario usuario=new Usuario();
-		usuario.setNombreusuario(nombreusuario);
-		usuario.setTipo(tipo);
-		
-		PasswordGenerator passwordGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
-		        .useDigits(true)
-		        .useLower(true)
-		        .useUpper(true)
-		        .build();
-		
-		usuario.setPassword(passwordGenerator.generate(8));
-		return usuario;
-	}
 
 	@Override
 	public Usuario findByIdUsuario(Long idUsuario) {
@@ -90,4 +87,43 @@ public class UsuarioServiceImpl implements UsuarioService, Serializable{
 		}
 	}
 
+	@Transactional
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Usuario user = findByNombreUsuario(username);
+
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
+		for (Rol rol : user.getRoles()) {
+			authorities.add(new SimpleGrantedAuthority(rol.getRol()));
+		}
+
+		System.out.println(user.toString());
+		return new User(user.getNombreusuario(), user.getPassword(), true, true, true, true, authorities);
+	}
+	
+	@Transactional
+	@Override
+	public void cambiaPassword(Long id, String password) {
+		Usuario usuario=findByIdUsuario(id);
+		String bcryptPassword = passwordEncoder.encode(password);
+		usuario.setPassword(bcryptPassword);
+		save(usuario);
+		
+	}
+/*
+	@Override
+	public void creaRol(Long id_usuario, int id_rol) {
+		// TODO Auto-generated method stub
+		Usuario usuario=findByIdUsuario(id_usuario);
+		Rol nuevo_rol=new Rol();
+		Constantes constantes=new Constantes();
+		nuevo_rol.setRol(constantes.findById("TiposRol",id_rol));
+		//List<MyType> myList = new ArrayList<MyType>();
+		List<Rol> nuevos_roles=new ArrayList<Rol>();
+		nuevos_roles.add(nuevo_rol);
+		usuario.setRoles(nuevos_roles);
+		save(usuario);
+	}
+*/
 }

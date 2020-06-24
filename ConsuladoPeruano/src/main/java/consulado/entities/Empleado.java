@@ -199,13 +199,21 @@ public class Empleado implements Serializable {
 		return true;
 	}
 
-	@Override
+/*	@Override
 	public String toString() {
 		return "Empleado [id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", numerodocumento="
 				+ numerodocumento + ", telefono=" + telefono + ", email=" + email + ", tipodocumento=" + tipodocumento
 				+ ", tipoempleado=" + tipoempleado + ", usuario=" + usuario + ", local=" + local + "]";
 	}
 
+	*/
+	@Override
+	public String toString() {
+		return "Empleado [id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", numerodocumento="
+				+ numerodocumento + ", telefono=" + telefono + ", email=" + email + ", tipodocumento=" + tipodocumento
+				+ ", tipoempleado=" + tipoempleado + ", usuario=" + usuario + ", local=" + local.getId() + "]";
+	}
+	
 	public Empleado(long id, String nombres, String apellidos, String numerodocumento, String telefono, String email,
 			int tipodocumento, int tipoempleado, Usuario usuario, Local local) {
 		super();

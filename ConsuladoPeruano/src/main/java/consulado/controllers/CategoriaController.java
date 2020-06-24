@@ -3,6 +3,7 @@ package consulado.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,7 +23,7 @@ public class CategoriaController {
     private CategoriaService categoriaService;
 	
 
-	   
+	@Secured("ROLE_SUPER_ADMIN")   
     @GetMapping("/c-list-categoria")
     public String showListaCategorias(Model model){
 
@@ -30,12 +31,14 @@ public class CategoriaController {
         return "/categorias/list-categoria";
     }
     
+	@Secured("ROLE_SUPER_ADMIN")
     @GetMapping("/c-add-categoria")
     public String showNuevoCategoria(Model model){
 		model.addAttribute("categoria", new Categoria());
         return "/categorias/add-categoria";
     }
-    
+
+	@Secured("ROLE_SUPER_ADMIN")
     @PostMapping("/do-add-categoria")
     public String doNuevoCategoria(@Valid Categoria categoria, BindingResult result, Model model){
     	 if (result.hasErrors()) {
@@ -48,14 +51,16 @@ public class CategoriaController {
          return "/categorias/list-categoria";
     }
     
-    
+
+	@Secured("ROLE_SUPER_ADMIN")
     @GetMapping("/c-edit-categoria/{id}")
     public String showEditarCategoria(@PathVariable("id") long id, Model model) {
         Categoria categoria = categoriaService.findById(id);
         model.addAttribute("categoria", categoria);
         return "/categorias/edit-categoria";
     }
-	
+
+	@Secured("ROLE_SUPER_ADMIN")
     @PostMapping("/do-edit-categoria")
     public String doEditCategoria(@Valid Categoria categoria, BindingResult result, Model model){
     	 if (result.hasErrors()) {
@@ -67,6 +72,7 @@ public class CategoriaController {
         return "/categorias/list-categoria";
     }
 
+	@Secured("ROLE_SUPER_ADMIN")
     @GetMapping("/do-delete-categoria/{id}")
     public String doEliminarCategoria(@PathVariable("id") long id, Model model) {
         Categoria categoria = categoriaService.findById(id);

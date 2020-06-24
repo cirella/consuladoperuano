@@ -17,4 +17,6 @@ public interface DistritoRepository  extends JpaRepository<Distrito, Long> {
 	List<Distrito> findByLocalId(Long id);
 	@Query("select d from Distrito d where d.local is null")
 	List<Distrito> findByLocalIdNull();
+	@Query("select d from Distrito d where d.local is not null")
+	List<Distrito> findByLocalIsNotNull();
 }

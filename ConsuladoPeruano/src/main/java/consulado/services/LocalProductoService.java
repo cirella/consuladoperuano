@@ -23,5 +23,6 @@ public interface LocalProductoService {
 	public int existeProducto(Producto producto, List<LocalProducto> lista);
 	public void cargaLocalProductoParaLocal(Local local);
 	public void actualizaStockLocal(Local local);
+	public LocalProducto findByIdLocalIdProducto(Long local_id, Long producto_id);
 
 }

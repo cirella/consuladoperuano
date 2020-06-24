@@ -5,6 +5,7 @@ package consulado.controllers;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,20 +25,23 @@ public class DistritoController {
 	@Autowired
     private DistritoService distritoService;
 
-   
+
+	@Secured("ROLE_SUPER_ADMIN")
     @GetMapping("/c-list-distrito")
     public String showListaDistritos(Model model){
 
     	model.addAttribute("listDistrito", distritoService.listAll());
         return "/distritos/list-distrito";
     }
-    
+
+	@Secured("ROLE_SUPER_ADMIN")
     @GetMapping("/c-add-distrito")
     public String showNuevoDistrito(Model model){
 		model.addAttribute("distrito", new Distrito());
         return "/distritos/add-distrito";
     }
-    
+
+	@Secured("ROLE_SUPER_ADMIN")
     @PostMapping("/do-add-distrito")
     public String doNuevoDistrito(@Valid Distrito distrito, BindingResult result, Model model){
     	 if (result.hasErrors()) {
@@ -50,14 +54,16 @@ public class DistritoController {
          return "/distritos/list-distrito";
     }
     
-    
+
+	@Secured("ROLE_SUPER_ADMIN")
     @GetMapping("/c-edit-distrito/{id}")
     public String showEditarDistrito(@PathVariable("id") long id, Model model) {
         Distrito distrito = distritoService.findById(id);
         model.addAttribute("distrito", distrito);
         return "/distritos/edit-distrito";
     }
-	
+
+	@Secured("ROLE_SUPER_ADMIN")
     @PostMapping("/do-edit-distrito")
     public String doEditDistrito(@Valid Distrito distrito, BindingResult result, Model model){
     	 if (result.hasErrors()) {
@@ -69,6 +75,7 @@ public class DistritoController {
         return "/distritos/list-distrito";
     }
 
+	@Secured("ROLE_SUPER_ADMIN")
     @GetMapping("/do-delete-distrito/{id}")
     public String doEliminarDistrito(@PathVariable("id") long id, Model model) {
         Distrito distrito = distritoService.findById(id);
